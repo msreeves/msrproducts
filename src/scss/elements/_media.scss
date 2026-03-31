@@ -1,0 +1,144 @@
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+.background-image {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+
+article {
+    .featured-media-inner {
+            img {
+                margin: 0;
+                object-fit: cover;
+                object-position: center;
+                overflow: hidden;
+                height: 80vh;
+                width: 100%;
+    
+                @include media(">phone", "<=tablet") {
+                    height: 40vh;
+                }
+            }
+        }
+    .listing-image {
+        img {
+            height: 50vh;
+        }
+    }
+}
+
+.latest {
+    .post {
+    .listing-image {
+    img {
+        @include media(">tablet", "<=desktop") {
+                height: 60vh;
+                width: 100%;
+            }
+    }
+}
+    }
+}
+
+.post {
+    .listing-image {
+        overflow: hidden;
+
+        img {
+            transition: transform .5s ease;
+
+            @include media(">tablet", "<=desktop") {
+                    height: 40vh;
+                    width: 320px;
+                }
+            
+                @include media(">phone", "<=tablet") {
+                    height: 40vh;
+                }
+        }
+    }
+}
+
+.listing-image {
+    .icon {
+        text-align: center;
+
+        img {
+            object-fit: contain;
+            height: 30vh;
+        }
+    }
+
+    img {
+        object-fit: cover;
+        object-position: center;
+        overflow: hidden;
+        height: 40vh;
+        width: 100%;
+    }
+}
+
+.publication {
+    .featured-media-inner {
+        img {
+            object-fit: contain;
+            height: 80vh;
+        }
+    }
+
+    .panel {
+        button {
+            width: auto;
+        }
+    }
+}
+
+.partner-listing-image {
+    img {
+        object-fit: contain;
+        object-position: center;
+        overflow: hidden;
+        height: 20vh;
+    }
+}
+
+figure.featured-media {
+    margin: 0;
+}
+
+.fa-brands {
+    font-size: 3.2rem;
+    color: $primary;
+}
+
+.advert {
+    .panel {
+        margin-bottom: 0;
+    h2 {
+        color: $white;
+    }
+}
+}
+
+.compat-field-folders {
+.term-list {
+        margin-top: 5px;
+}
+}
+
+.compat-field-folders {
+    .children {
+    margin: 5px 0 0 20px;
+    }
+}
+
+.compat-field-folders {
+.field input[type=checkbox] {
+        margin-top: 0;
+}
+}
