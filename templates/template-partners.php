@@ -28,7 +28,7 @@ get_header();
           <?php while ( $all_partners->have_posts() ) : $all_partners->the_post(); ?>	
       <?php get_template_part( 'templates/partials/post-listing/listing-partner' ); ?>
           <?php endwhile; ?>
-          <?php wp_reset_query() ?>
+          <?php wp_reset_postdata() ?>
       </div>
       <?php endif; ?>
 

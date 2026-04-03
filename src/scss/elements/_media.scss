@@ -98,12 +98,18 @@ article {
     }
 }
 
+// Partner logos (often SVG with bogus 1×1 metadata from WP).
 .partner-listing-image {
-    img {
-        object-fit: contain;
-        object-position: center;
-        overflow: hidden;
-        height: 20vh;
+    .featured-media-inner {
+        img {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            min-height: 120px;
+            object-fit: contain;
+            object-position: center;
+        }
     }
 }
 

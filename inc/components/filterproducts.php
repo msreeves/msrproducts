@@ -33,7 +33,7 @@
           <?php while ( $all_posts->have_posts() ) : $all_posts->the_post(); ?>	
               <?php get_template_part( 'templates/partials/post-listing/posts/maincategory' ); ?>
           <?php endwhile; ?>
-          <?php wp_reset_query() ?>
+          <?php wp_reset_postdata(); ?>
       </div>
       <?php endif; ?>
 
@@ -62,7 +62,7 @@
           <?php while ( $posts->have_posts() ) : $posts->the_post(); ?>	
          <?php get_template_part( 'templates/partials/post-listing/posts/subcategory' ); ?>
           <?php endwhile; ?>
-          <?php wp_reset_query() ?>
+          <?php wp_reset_postdata(); ?>
       </div>
         <?php endif; ?>
 

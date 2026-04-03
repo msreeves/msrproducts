@@ -7,7 +7,6 @@
 		  <script type="text/javascript">
     		var wp_ajax = "<?php echo admin_url('admin-ajax.php'); ?>";
 			</script>   
-    <title>MSR Products</title>
         <?php wp_head ();?>
 </head>
 <body <?php body_class(); ?>>
@@ -38,6 +37,14 @@
 			$promo_text = 'Shop our latest products and featured collections.';
 		}
 	}
+
+	$my_account_url = home_url( '/my-account/' );
+	if ( function_exists( 'wc_get_page_permalink' ) ) {
+		$permalink = wc_get_page_permalink( 'myaccount' );
+		if ( $permalink ) {
+			$my_account_url = $permalink;
+		}
+	}
 	?>
 	<header id="masthead" class="site-header manic-site-header">
 		<div class="promo-strip" role="region" aria-label="Promotions">
@@ -56,14 +63,8 @@
 			<div class="container-fluid utility-nav__inner">
 				<ul class="utility-nav__list">
 					<li><a href="<?php echo esc_url($special_offers_url); ?>">Special Offers</a></li>
-					<li><a href="<?php echo esc_url(home_url('/find-a-store')); ?>">Find a Store</a></li>
-					<li><a href="<?php echo esc_url(home_url('/my-account')); ?>">My Account</a></li>
+					<li><a href="<?php echo esc_url($my_account_url); ?>">My Account</a></li>
 				</ul>
-				<div class="utility-nav__region">
-					<button class="utility-nav__region-button" type="button" aria-label="Choose region">
-						United States
-					</button>
-				</div>
 			</div>
 		</div>
 
@@ -75,7 +76,7 @@
 
 				<div class="header-actions header-actions--desktop" aria-label="Header actions">
 					<button type="button" class="header-action-btn" data-nav-search-toggle aria-expanded="false" aria-controls="site-search-panel">Search</button>
-					<a class="header-action-link" href="<?php echo esc_url(home_url('/my-account')); ?>">Sign In</a>
+					<a class="header-action-link" href="<?php echo esc_url($my_account_url); ?>">Sign In</a>
 					<a class="header-action-link" href="<?php echo esc_url(home_url('/cart')); ?>">
 						Bag
 						<?php if (function_exists('WC')) : ?>
@@ -94,7 +95,7 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<div class="mobile-utility" aria-label="Mobile utility actions">
 						<button type="button" class="header-action-btn" data-nav-search-toggle aria-expanded="false" aria-controls="site-search-panel">Search</button>
-						<a class="header-action-link" href="<?php echo esc_url(home_url('/my-account')); ?>">Account</a>
+						<a class="header-action-link" href="<?php echo esc_url($my_account_url); ?>">Account</a>
 						<a class="header-action-link" href="<?php echo esc_url(home_url('/cart')); ?>">Bag</a>
 					</div>
 					<?php

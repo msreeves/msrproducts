@@ -18,6 +18,21 @@ require_once('inc/controllers/script-styles.php');
 require_once('inc/controllers/woocommerce.php');
 
 /**
+ * WordPress often stores SVG dimensions as 1×1; strip width/height so layout/CSS can size them.
+ */
+function msrproducts_fix_svg_attachment_image_dimensions( $attr, $attachment, $size ) {
+	if ( ! $attachment instanceof WP_Post ) {
+		return $attr;
+	}
+	if ( $attachment->post_mime_type !== 'image/svg+xml' ) {
+		return $attr;
+	}
+	unset( $attr['width'], $attr['height'] );
+	return $attr;
+}
+add_filter( 'wp_get_attachment_image_attributes', 'msrproducts_fix_svg_attachment_image_dimensions', 10, 3 );
+
+/**
  * Sets up theme defaults and registers support for various WordPress features.
  *
  * Note that this function is hooked into the after_setup_theme hook, which
@@ -121,17 +136,18 @@ if ( ! function_exists( 'tenweb_meta_description' ) ) {
             $des_post = strip_shortcodes( $des_post ); 
             $des_post = str_replace( array("\n", "\r", "\t"), ' ', $des_post ); 
             $des_post = mb_substr( $des_post, 0, 300, 'utf8' ); 
-            echo '<meta name="description" content="' . $des_post . '" />'. "\n"; 
+            echo '<meta name="description" content="' . esc_attr( $des_post ) . '" />' . "\n"; 
         } 
  
         if ( is_home() ) 
         { 
-            echo '<meta name="description" content="' . get_bloginfo( "description" ) . '" />' . "\n"; 
+            $des_home = strip_tags( (string) get_bloginfo( "description" ) );
+            echo '<meta name="description" content="' . esc_attr( $des_home ) . '" />' . "\n"; 
         } 
  
         if ( is_category() ) {
             $des_cat = strip_tags(category_description());
-            echo '<meta name="description" content="' . $des_cat . '" />'. "\n";
+            echo '<meta name="description" content="' . esc_attr( $des_cat ) . '" />' . "\n";
         } 
     } 
 }
@@ -281,3 +297,66 @@ if ( ! function_exists( 'msrproducts_disable_woocommerce_styles' ) ) {
 	}
 }
 add_filter( 'woocommerce_enqueue_styles', 'msrproducts_disable_woocommerce_styles' );
+
+/**
+ * Some plugins or legacy code can leave $wp_query->posts as a WP_Query object instead of an array,
+ * which fatals in have_posts() / rewind_posts() on PHP 8+. Normalize before templates run.
+ */
+function msrproducts_fix_main_query_posts_array() {
+	global $wp_query;
+	if ( ! isset( $wp_query ) || ! ( $wp_query instanceof WP_Query ) ) {
+		return;
+	}
+	if ( ! isset( $wp_query->posts ) ) {
+		return;
+	}
+	if ( is_array( $wp_query->posts ) ) {
+		return;
+	}
+	if ( $wp_query->posts instanceof WP_Query ) {
+		$inner = $wp_query->posts;
+		$wp_query->posts = ( isset( $inner->posts ) && is_array( $inner->posts ) ) ? $inner->posts : array();
+	} else {
+		$wp_query->posts = array();
+	}
+	$wp_query->post_count = count( $wp_query->posts );
+	$wp_query->current_post = -1;
+	if ( $wp_query->post_count > 0 && isset( $wp_query->posts[0] ) ) {
+		$wp_query->post = $wp_query->posts[0];
+	}
+
+	// If recovery left no posts but this URL is the static front page, re-inject that page.
+	if ( $wp_query->post_count === 0 && get_option( 'show_on_front' ) === 'page' && is_front_page() ) {
+		$page_id = (int) get_option( 'page_on_front' );
+		if ( $page_id > 0 ) {
+			$p = get_post( $page_id );
+			if ( $p instanceof WP_Post ) {
+				$wp_query->posts         = array( $p );
+				$wp_query->post_count    = 1;
+				$wp_query->current_post  = -1;
+				$wp_query->post          = $p;
+				$wp_query->queried_object = $p;
+				$wp_query->queried_object_id = $page_id;
+			}
+		}
+	}
+}
+add_action( 'template_redirect', 'msrproducts_fix_main_query_posts_array', 0 );
+
+/**
+ * Page used for rich homepage in index.php (content + Woo sections + partners).
+ */
+function msrproducts_index_rich_home_post() {
+	if ( get_option( 'show_on_front' ) !== 'page' ) {
+		return null;
+	}
+	$page_id = (int) get_option( 'page_on_front' );
+	if ( $page_id < 1 ) {
+		return null;
+	}
+	if ( is_front_page() || is_page( $page_id ) ) {
+		$p = get_post( $page_id );
+		return $p instanceof WP_Post ? $p : null;
+	}
+	return null;
+}

@@ -10,8 +10,13 @@
 	wp_enqueue_style('animatecss', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
 	wp_enqueue_style('fancyboxcss', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css');
 	wp_enqueue_style('bootstrapcss', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css');
-	wp_enqueue_style('stylecss', get_template_directory_uri() . '/style.css' , array(), time());
-	wp_register_style('appcss', get_template_directory_uri() . '/dist/app.css' , array(), time());
+	// Stable cache-busting: change only when files change (improves CWV vs time()).
+	$style_ver = @filemtime( get_template_directory() . '/style.css' );
+	$app_ver   = @filemtime( get_template_directory() . '/dist/app.css' );
+	$style_ver = $style_ver ? (int) $style_ver : null;
+	$app_ver   = $app_ver ? (int) $app_ver : null;
+	wp_enqueue_style('stylecss', get_template_directory_uri() . '/style.css' , array(), $style_ver);
+	wp_register_style('appcss', get_template_directory_uri() . '/dist/app.css' , array(), $app_ver);
 	wp_enqueue_style('googlefonts');
 	wp_enqueue_style('basecss');
     wp_enqueue_style('appcss');

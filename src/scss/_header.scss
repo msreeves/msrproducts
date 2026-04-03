@@ -380,7 +380,7 @@ header {
     min-height: 40px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   .utility-nav__list {
@@ -392,8 +392,7 @@ header {
     gap: 16px;
   }
 
-  a,
-  .utility-nav__region-button {
+  a {
     color: #3b3b3b;
     font-size: 0.76rem;
     text-transform: uppercase;
