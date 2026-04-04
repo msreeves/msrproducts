@@ -16,6 +16,7 @@ require_once('inc/controllers/search.php');
 require_once('inc/controllers/wp-menus.php');
 require_once('inc/controllers/script-styles.php');
 require_once('inc/controllers/woocommerce.php');
+require_once('inc/controllers/subdir-upload-urls.php');
 
 /**
  * WordPress often stores SVG dimensions as 1×1; strip width/height so layout/CSS can size them.
