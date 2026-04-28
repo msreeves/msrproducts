@@ -1,81 +1,101 @@
-footer {
-    width: 100%;
-    padding: 1.5em 0 1.5em 0;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.modern-footer {
+  margin-top: 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fafafa;
+  padding: 2rem 0;
 
-    .navbar-nav {
-            ul {
-                list-style: none;
-                display: flex;
-                justify-content: space-between;
-                margin: 0;
-            }
-    
-            a {
-                text-transform: uppercase;
-                letter-spacing: 0.04em;
-                text-decoration: none;
-                color: $primary;
-                font-weight: 800;
-                position: relative;
-                padding: 5px;
-    
-                &::after {
-                    position: absolute;
-                    bottom: -4px;
-                    left: 0;
-                    content: '';
-                    width: 100%;
-                    height: 2px;
-                    background: $white;
-                    transform: scale(0, 1);
-                    transform-origin: right top;
-                    transition: transform .3s;
-                }
-    
-                &:hover {
-                    &::after {
-                        transform-origin: left top;
-                        transform: scale(1, 1);
-                    }
-                }
-            }
-    
-            li {
-                margin: 10px;
-                font-size: 1rem;
+  .modern-footer__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
 
-                    @include media(">phone", "<=tablet") {
-                            &:last-of-type {
-                                    margin-bottom: 2rem;
-                                }
-                        }
-            }
+  .modern-footer__col h2 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.7rem;
+  }
 
-                        .social-media {
-                            .fa-brands {
-                                color: $primary;
-                            }
-            
-                            a {
-                                &::after {
-                                    transition: none;
-                                }
-            
-                                &:hover {
-                                    &::after {
-                                        background: transparent;
-                                        transform-origin: none;
-                                        transform: none;
-                                    }
-                                }
-                            }
-            
-                            h2 {
-                                color: $white;
-                            }
-            
-                        }
-        }
+  .modern-footer__col ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 8px;
+  }
+
+  .modern-footer__col a {
+    color: #222;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  .modern-footer__social {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .modern-footer__social a {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modern-footer__note {
+    margin-top: 0.9rem;
+    font-size: 0.8rem;
+    color: #666;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .modern-footer .modern-footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .modern-footer .modern-footer__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cookie-consent-banner {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 3200;
+  background: #111;
+  color: #fff;
+  border-radius: 12px;
+  padding: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  p {
+    margin: 0;
+    font-size: 0.85rem;
+  }
+
+  a {
+    color: #fff;
+    text-decoration: underline;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .cookie-consent-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 

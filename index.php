@@ -24,6 +24,7 @@ if ( $page instanceof WP_Post ) {
       <div class="panel">
    <?php the_content(); ?>
    </div>
+	<?php get_template_part( 'inc/components/home-showcase' ); ?>
     <?php get_template_part( 'inc/components/filterproducts' ); ?>
     <?php get_template_part( 'inc/components/publicationlist' ); ?>
     <?php get_template_part( 'templates/partials/leaderboard/billboard' ); ?>

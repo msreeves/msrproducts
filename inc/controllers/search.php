@@ -1,30 +1,42 @@
-<?php function search_excerpt_highlight() {
-    $excerpt = get_the_excerpt();
-    $keys = implode('|', explode(' ', get_search_query()));
-    $excerpt = preg_replace('/(' . $keys .')/iu', '<strong class="search-highlight">\0</strong>', $excerpt);
+<?php
+/**
+ * Safe search highlighting helpers.
+ *
+ * @package msrproducts
+ */
 
-    echo '<p>' . $excerpt . '</p>';
+if ( ! function_exists( 'msrproducts_search_pattern' ) ) {
+	function msrproducts_search_pattern() {
+		$query = trim( (string) get_search_query() );
+		if ( $query === '' ) {
+			return '';
+		}
+		$parts = preg_split( '/\s+/', $query );
+		$parts = array_filter( array_map( 'preg_quote', $parts ) );
+		return empty( $parts ) ? '' : '/(' . implode( '|', $parts ) . ')/iu';
+	}
+}
+
+function search_excerpt_highlight() {
+	$excerpt = get_the_excerpt();
+	echo '<p>' . wp_kses_post( $excerpt ) . '</p>';
 }
 
 function search_title_highlight() {
-    $title = get_the_title();
-    $keys = implode('|', explode(' ', get_search_query()));
-    $title = preg_replace('/(' . $keys .')/iu', '<strong class="search-highlight">\0</strong>', $title);
-
-    echo $title;
+	$title = get_the_title();
+	echo wp_kses_post( $title );
 }
 
 function search_content_highlight() {
-        $content =  get_the_content();
-        $keys = implode('|', explode(' ', get_search_query()));
-        $content = preg_replace('/(' . $keys .')/iu', '<strong class="search-highlight">\0</strong>', $content);
-
-        echo '<p>' . $content . '.....' . '</p>';
-    }
-
-    function remove_pages_from_search() {
-    global $wp_post_types;
-    $wp_post_types['page']->exclude_from_search = true;
+	$content = get_the_content();
+	echo '<p>' . wp_kses_post( wp_trim_words( wp_strip_all_tags( $content ), 45, '...' ) ) . '</p>';
 }
-add_action('init', 'remove_pages_from_search');
-    ?>
+
+function remove_pages_from_search() {
+	global $wp_post_types;
+	if ( isset( $wp_post_types['page'] ) ) {
+		$wp_post_types['page']->exclude_from_search = true;
+	}
+}
+add_action( 'init', 'remove_pages_from_search' );
+?>
