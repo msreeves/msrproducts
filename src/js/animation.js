@@ -16,25 +16,27 @@ function startCounter() {
     }
 	};
 
-Fancybox.bind('[data-fancybox="gallery"]', {
-  Toolbar: false,
-  animated: false,
-  dragToClose: false,
+if ( typeof window.Fancybox !== 'undefined' && window.Fancybox && typeof window.Fancybox.bind === 'function' ) {
+  window.Fancybox.bind('[data-fancybox="gallery"]', {
+    Toolbar: false,
+    animated: false,
+    dragToClose: false,
 
-  showClass: false,
-  hideClass: false,
+    showClass: false,
+    hideClass: false,
 
-  closeButton: "top",
+    closeButton: "top",
 
-  Image: {
-    click: "close",
-    wheel: "slide",
-    zoom: false,
-    fit: "cover",
-  },
+    Image: {
+      click: "close",
+      wheel: "slide",
+      zoom: false,
+      fit: "cover",
+    },
 
-  Thumbs: {
-    minScreenHeight: 0,
-  },
-});
+    Thumbs: {
+      minScreenHeight: 0,
+    },
+  });
+}
 })(jQuery);
