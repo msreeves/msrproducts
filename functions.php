@@ -19,6 +19,10 @@ require_once('inc/controllers/woocommerce.php');
 require_once('inc/controllers/catalog-mode.php');
 require_once('inc/controllers/subdir-upload-urls.php');
 require_once('inc/controllers/home-acf.php');
+require_once get_template_directory() . '/inc/msr-products-acf.php';
+require_once get_template_directory() . '/inc/msr-products-options.php';
+require_once get_template_directory() . '/inc/msr-products-seo.php';
+require_once get_template_directory() . '/inc/msr-products-setup.php';
 
 /**
  * WordPress often stores SVG dimensions as 1×1; strip width/height so layout/CSS can size them.
@@ -90,6 +94,8 @@ function msrproducts_setup() {
 
 	// Add theme support for selective refresh for widgets.
 	add_theme_support( 'customize-selective-refresh-widgets' );
+
+	add_theme_support( 'title-tag' );
 
 	/**
 	 * Add support for core custom logo.

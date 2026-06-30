@@ -93,10 +93,10 @@ if( isset( $child_cat ) ){
     );
     $related = new WP_Query( $args );
     if( $related->have_posts() ){
-		echo '<div class="row">';
+		echo '<div class="row msr-card-grid products-card-grid">';
         while( $related->have_posts() ){
             $related->the_post();
-                get_template_part( 'templates/partials/post-listing/posts/listing-products' );
+                get_template_part( 'template-parts/cards/product-card' );
         }
         wp_reset_postdata();
 		echo '</div>';

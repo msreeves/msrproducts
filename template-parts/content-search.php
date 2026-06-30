@@ -10,7 +10,7 @@
 ?>
 
 <div class="col-xl-4 col-lg-4 col-md-6 search-result-col">
-	<article class="post panel product-card search-card">
+	<article class="post panel msr-card product-card search-card">
 		<div class="listing-image">
 			<?php get_template_part( 'templates/partials/featured-image' ); ?>
 		</div>

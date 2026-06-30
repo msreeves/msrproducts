@@ -46,9 +46,9 @@ Pass criteria:
 If files are present in uploads but WordPress meta still points to stale paths:
 
 - Dry run:
-  - `php /Applications/MAMP/htdocs/scripts/relink-missing-attachments.php --dry-run`
+  - `php /Applications/MAMP/htdocs/scripts/archive/relink-missing-attachments.php --dry-run`
 - Apply updates:
-  - `php /Applications/MAMP/htdocs/scripts/relink-missing-attachments.php --apply`
+  - `php /Applications/MAMP/htdocs/scripts/archive/relink-missing-attachments.php --apply`
 - Re-verify:
   - `php /Applications/MAMP/htdocs/scripts/verify-media-restoration.php`
 

@@ -89,6 +89,15 @@
   a {
     color: #fff;
     text-decoration: underline;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .button {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 10px 16px;
   }
 }
 

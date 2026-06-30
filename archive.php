@@ -21,12 +21,12 @@ get_header();
 						<h3><?php the_archive_description(); ?></h3>
 						<?php get_template_part( 'inc/controllers/searchbar' ); ?>
 					</div>
-					<div class="row">
+					<div class="row msr-card-grid products-card-grid">
 						<?php while ( have_posts() ) : the_post(); ?>
 							<?php
 							$post_type = get_post_type();
 							if ( $post_type === 'product' ) {
-								get_template_part( 'templates/partials/post-listing/posts/maincategory' );
+								get_template_part( 'template-parts/cards/product-card' );
 							} else {
 								get_template_part( 'template-parts/content', 'search' );
 							}

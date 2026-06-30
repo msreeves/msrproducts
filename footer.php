@@ -69,20 +69,22 @@
 					}
 					?>
 				</div>
-				<p class="modern-footer__note">Showcase mode active. No checkout is available.</p>
+				<?php if ( msrproducts_show_footer_showcase_note() ) : ?>
+					<p class="modern-footer__note"><?php echo esc_html( msrproducts_get_footer_showcase_note() ); ?></p>
+				<?php endif; ?>
 			</div>
 		</div>
 	</footer><!-- #colophon -->
 	<div id="compare-preview-modal" class="compare-preview-modal" hidden aria-hidden="true" aria-labelledby="compare-preview-title">
 		<div class="compare-preview-modal__dialog">
-			<h2 id="compare-preview-title">Project compare list</h2>
-			<p>Select up to three projects, then open the comparison page.</p>
-			<a class="button" id="compare-preview-link" href="<?php echo esc_url( $compare_url ); ?>">Open compare page</a>
+			<h2 id="compare-preview-title"><?php echo esc_html( msrproducts_get_compare_modal_title() ); ?></h2>
+			<p><?php echo esc_html( msrproducts_get_compare_modal_lead() ); ?></p>
+			<a class="button" id="compare-preview-link" href="<?php echo esc_url( $compare_url ); ?>"><?php echo esc_html( msrproducts_get_compare_modal_cta() ); ?></a>
 			<button type="button" class="button button--ghost" id="compare-preview-close">Close</button>
 		</div>
 	</div>
 	<div id="cookie-consent-banner" class="cookie-consent-banner" hidden aria-live="polite">
-		<p>This site uses cookies for navigation and anonymized analytics. <a href="<?php echo esc_url( $cookie_url ); ?>">Read cookie policy</a>.</p>
+		<p><?php echo esc_html( msrproducts_get_cookie_consent_message() ); ?> <a href="<?php echo esc_url( $cookie_url ); ?>">Read cookie policy</a>.</p>
 		<button type="button" class="button" id="cookie-consent-accept">Accept</button>
 	</div>
 <?php wp_footer(); ?>

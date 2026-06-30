@@ -24,7 +24,7 @@
               $all_posts->the_post(); ?>	                
 			                 
                           <?php get_template_part(
-                              "templates/partials/post-listing/listing-publication"
+                              "template-parts/cards/publication-card"
                           ); ?> 
                           
           <?php

@@ -16,8 +16,16 @@
 
   .woocommerce-breadcrumb {
     margin: 0 0 1rem;
-    color: $grey;
+    color: #4a4a4a;
     font-size: 0.82rem;
+
+    a {
+      color: #1f1f1f;
+      min-height: 44px;
+      min-width: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
   }
 
   .products.columns-2,
@@ -62,7 +70,7 @@
 
   .woocommerce-result-count {
     margin: 0 0 1rem;
-    color: $grey;
+    color: #4a4a4a;
     font-family: $body-text;
     font-size: 0.9rem;
   }
@@ -71,7 +79,7 @@
     margin: 0 0 1rem;
 
     select {
-      min-height: 42px;
+      min-height: 44px;
       padding: 0 12px;
       border: 1px solid rgba(0, 0, 0, 0.22);
       border-radius: 6px;
@@ -161,7 +169,8 @@
       a.button {
         width: calc(100% - 1.8rem);
         margin: 0 0.9rem 0.9rem;
-        min-height: 38px;
+        min-height: 44px;
+        min-width: 44px;
         border-radius: 999px;
         font-size: 0.7rem;
         letter-spacing: 0.04em;
@@ -213,7 +222,8 @@
     ul.products li.product a.button {
       width: calc(100% - 1.3rem);
       margin: 0.45rem 0.65rem 0.65rem;
-      min-height: 32px;
+      min-height: 44px;
+      min-width: 44px;
       font-size: 0.64rem;
       letter-spacing: 0.04em;
     }
@@ -554,8 +564,8 @@
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          min-width: 38px;
-          min-height: 38px;
+          min-width: 44px;
+          min-height: 44px;
           border: 1px solid #111;
           border-radius: 8px;
           background: #fff;

@@ -1,10 +1,17 @@
 <?php
-$categories  = get_the_terms( get_the_ID(), 'product_cat' );
+/**
+ * WooCommerce product listing card.
+ *
+ * @package msrproducts
+ */
+
+$post_id     = get_the_ID();
+$categories  = get_the_terms( $post_id, 'product_cat' );
 $safe_labels = array();
 $price_html  = '';
 
 if ( function_exists( 'wc_get_product' ) ) {
-	$product = wc_get_product( get_the_ID() );
+	$product = wc_get_product( $post_id );
 	if ( $product instanceof WC_Product ) {
 		$active_price  = $product->get_price();
 		$regular_price = $product->get_regular_price();
@@ -31,7 +38,7 @@ if ( ! is_wp_error( $categories ) && is_array( $categories ) ) {
 }
 ?>
 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-	<article class="post panel product-card">
+	<article class="post panel msr-card product-card">
 		<div class="listing-image">
 			<?php get_template_part( 'templates/partials/featured-image' ); ?>
 		</div>
@@ -44,8 +51,8 @@ if ( ! is_wp_error( $categories ) && is_array( $categories ) ) {
 			<?php endif; ?>
 			<h3><?php the_title(); ?></h3>
 			<div class="card-actions">
-				<a href="<?php the_permalink(); ?>" class="card-link-btn">Request information</a>
-				<button type="button" class="card-compare-btn" data-compare-toggle data-product-id="<?php echo esc_attr( (string) get_the_ID() ); ?>">Compare</button>
+				<a href="<?php the_permalink(); ?>" class="card-link-btn"><?php esc_html_e( 'Request information', 'msrproducts' ); ?></a>
+				<button type="button" class="card-compare-btn" data-compare-toggle data-product-id="<?php echo esc_attr( (string) $post_id ); ?>"><?php esc_html_e( 'Compare', 'msrproducts' ); ?></button>
 			</div>
 		</div>
 	</article>

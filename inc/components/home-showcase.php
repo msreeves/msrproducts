@@ -131,8 +131,8 @@ if ( is_wp_error( $product_terms ) ) {
 			<h2 id="home-hero-title"><?php echo esc_html( $hero_title ); ?></h2>
 			<p><?php echo esc_html( $hero_copy ); ?></p>
 			<div class="home-hero-banner__actions">
-				<a class="button" href="<?php echo esc_url( $shop_url ); ?>">Explore projects</a>
-				<a class="button button--ghost" href="<?php echo esc_url( $contact_url ); ?>">Start a conversation</a>
+				<a class="button" href="<?php echo esc_url( $shop_url ); ?>"><?php echo esc_html( msrproducts_get_hero_primary_cta() ); ?></a>
+				<a class="button button--ghost" href="<?php echo esc_url( $contact_url ); ?>"><?php echo esc_html( msrproducts_get_hero_secondary_cta() ); ?></a>
 			</div>
 		</div>
 	</div>
@@ -141,8 +141,8 @@ if ( is_wp_error( $product_terms ) ) {
 <section class="home-image-led-grid" aria-labelledby="home-image-led-grid-title">
 	<div class="container">
 		<div class="home-image-led-grid__head">
-			<h2 id="home-image-led-grid-title">Featured project snapshots</h2>
-			<a href="<?php echo esc_url( $shop_url ); ?>" class="home-inline-link">View all projects</a>
+			<h2 id="home-image-led-grid-title"><?php echo esc_html( msrproducts_get_featured_grid_title() ); ?></h2>
+			<a href="<?php echo esc_url( $shop_url ); ?>" class="home-inline-link"><?php echo esc_html( msrproducts_get_featured_grid_link_label() ); ?></a>
 		</div>
 		<div class="home-image-led-grid__cards">
 			<?php if ( $featured_products->have_posts() ) : ?>
@@ -196,8 +196,8 @@ if ( is_wp_error( $product_terms ) ) {
 <section class="home-category-tiles" aria-labelledby="home-category-tiles-title">
 	<div class="container">
 		<div class="home-image-led-grid__head">
-			<h2 id="home-category-tiles-title">Browse by category</h2>
-			<a href="<?php echo esc_url( $shop_url ); ?>" class="home-inline-link">Explore categories</a>
+			<h2 id="home-category-tiles-title"><?php echo esc_html( msrproducts_get_category_tiles_title() ); ?></h2>
+			<a href="<?php echo esc_url( $shop_url ); ?>" class="home-inline-link"><?php echo esc_html( msrproducts_get_category_tiles_link_label() ); ?></a>
 		</div>
 		<div class="home-category-tiles__grid">
 			<?php foreach ( $product_terms as $term ) : ?>
@@ -288,7 +288,7 @@ if ( is_wp_error( $product_terms ) ) {
 
 <section class="home-faq-preview" aria-labelledby="home-faq-preview-title">
 	<div class="container">
-		<h2 id="home-faq-preview-title">Common questions</h2>
+		<h2 id="home-faq-preview-title"><?php echo esc_html( msrproducts_get_home_faq_section_title() ); ?></h2>
 		<?php echo do_shortcode( '[msrproducts_faq]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 	</div>
 </section>

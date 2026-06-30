@@ -20,13 +20,13 @@ $all_partners = new WP_Query( $args );
 <section class="partners-showcase" aria-labelledby="partners-showcase-heading">
 	<div class="container">
 		<div class="partners-showcase__head">
-			<h2 id="partners-showcase-heading">Trusted by brands and retailers</h2>
-			<p>Selected collaborators across product, retail, and digital design programs.</p>
+			<h2 id="partners-showcase-heading"><?php echo esc_html( msrproducts_get_partners_band_title() ); ?></h2>
+			<p><?php echo esc_html( msrproducts_get_partners_band_lead() ); ?></p>
 		</div>
 		<div class="partners-showcase__grid">
 			<?php if ( $all_partners->have_posts() ) : ?>
 				<?php while ( $all_partners->have_posts() ) : $all_partners->the_post(); ?>
-					<?php get_template_part( 'templates/partials/post-listing/listing-partner' ); ?>
+					<?php get_template_part( 'template-parts/cards/partner-card' ); ?>
 				<?php endwhile; ?>
 				<?php wp_reset_postdata(); ?>
 			<?php else : ?>

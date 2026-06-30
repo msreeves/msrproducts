@@ -221,7 +221,8 @@
 			filterLinks.forEach(function(link) {
 				const linkTarget = link.getAttribute('data-filter-link');
 				const isActive = linkTarget === target;
-				link.setAttribute('aria-selected', isActive ? 'true' : 'false');
+				link.setAttribute( 'aria-pressed', isActive ? 'true' : 'false' );
+				link.removeAttribute( 'aria-selected' );
 				if ( link.parentElement ) {
 					link.parentElement.classList.toggle('active', isActive);
 				}

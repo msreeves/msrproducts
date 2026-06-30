@@ -17,19 +17,19 @@ if ( $active_filter === '' ) {
 <div class="container">
 	<div class="post-tabs modern-product-filters" data-filter-shell>
 		<div class="filter-sidebar">
-			<p class="filter-sidebar__title">Categories</p>
+			<p class="filter-sidebar__title"><?php echo esc_html( msrproducts_get_catalog_filter_title() ); ?></p>
 			<div class="filter-controls-row">
 				<button type="button" class="filter-toolbar__reset" data-filter-reset>Reset</button>
-				<ul class="filter-nav" id="product-filter-tabs" role="tablist">
+				<ul class="filter-nav" id="product-filter-tabs">
 					<li class="filter-nav__item <?php echo $active_filter === 'all' ? 'active' : ''; ?>">
-						<button type="button" role="tab" aria-controls="all" aria-selected="<?php echo $active_filter === 'all' ? 'true' : 'false'; ?>" data-filter-link="all">All</button>
+						<button type="button" class="filter-nav__btn" data-filter-link="all" aria-pressed="<?php echo $active_filter === 'all' ? 'true' : 'false'; ?>">All</button>
 					</li>
 					<?php foreach ( $post_categories as $post_category ) : ?>
 						<?php if ( ! ( $post_category instanceof WP_Term ) ) : ?>
 							<?php continue; ?>
 						<?php endif; ?>
 						<li class="filter-nav__item <?php echo $active_filter === $post_category->slug ? 'active' : ''; ?>">
-							<button type="button" role="tab" aria-controls="<?php echo esc_attr( $post_category->slug ); ?>" aria-selected="<?php echo $active_filter === $post_category->slug ? 'true' : 'false'; ?>" data-filter-link="<?php echo esc_attr( $post_category->slug ); ?>"><?php echo esc_html( $post_category->name ); ?></button>
+							<button type="button" class="filter-nav__btn" data-filter-link="<?php echo esc_attr( $post_category->slug ); ?>" aria-pressed="<?php echo $active_filter === $post_category->slug ? 'true' : 'false'; ?>"><?php echo esc_html( $post_category->name ); ?></button>
 						</li>
 					<?php endforeach; ?>
 				</ul>
@@ -59,14 +59,14 @@ if ( $active_filter === '' ) {
 				);
 				?>
 				<?php if ( $all_posts->have_posts() ) : ?>
-					<div class="row">
+					<div class="row msr-card-grid products-card-grid">
 						<?php while ( $all_posts->have_posts() ) : $all_posts->the_post(); ?>
-							<?php get_template_part( 'templates/partials/post-listing/posts/maincategory' ); ?>
+							<?php get_template_part( 'template-parts/cards/product-card' ); ?>
 						<?php endwhile; ?>
 						<?php wp_reset_postdata(); ?>
 					</div>
 				<?php else : ?>
-					<p class="listing-empty">No projects found yet.</p>
+					<p class="listing-empty"><?php echo esc_html( msrproducts_get_catalog_empty_message() ); ?></p>
 				<?php endif; ?>
 			</div>
 
@@ -91,9 +91,9 @@ if ( $active_filter === '' ) {
 					);
 					?>
 					<?php if ( $posts->have_posts() ) : ?>
-						<div class="row">
+						<div class="row msr-card-grid products-card-grid">
 							<?php while ( $posts->have_posts() ) : $posts->the_post(); ?>
-								<?php get_template_part( 'templates/partials/post-listing/posts/subcategory' ); ?>
+								<?php get_template_part( 'template-parts/cards/product-card' ); ?>
 							<?php endwhile; ?>
 							<?php wp_reset_postdata(); ?>
 						</div>

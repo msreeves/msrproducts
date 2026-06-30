@@ -11,8 +11,9 @@
 </head>
 <body <?php body_class(); ?>>
 	<?php wp_body_open(); ?>
+	<a class="skip-link screen-reader-text" href="#site-content"><?php esc_html_e( 'Skip to content', 'msrproducts' ); ?></a>
 	<?php
-	$promo_text = 'Portfolio case studies, technical specs, and collaboration-ready project pages.';
+	$promo_text = msrproducts_get_promo_strip_text();
 	$promo_url = home_url('/shop');
 
 	if (function_exists('wc_get_page_permalink')) {
@@ -32,7 +33,7 @@
 					<a href="<?php echo esc_url($promo_url); ?>">
 						<span class="promo-pill">Portfolio</span>
 						<span class="promo-message"><?php echo esc_html($promo_text); ?></span>
-						<span class="promo-cta">Explore projects</span>
+						<span class="promo-cta"><?php echo esc_html( msrproducts_get_promo_strip_cta() ); ?></span>
 					</a>
 				</p>
 			</div>
@@ -71,7 +72,7 @@
 
 		<nav id="site-navigation" class="navbar navbar-expand-md navbar-light manic-nav" role="navigation" aria-label="Primary navigation">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="<?php echo esc_url(home_url('/')); ?>">
+				<a class="navbar-brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 					<?php
 					$custom_logo_id = get_theme_mod( 'custom_logo' );
 					if ( $custom_logo_id && function_exists( 'msrproducts_attachment_file_exists' ) && msrproducts_attachment_file_exists( (int) $custom_logo_id ) ) {

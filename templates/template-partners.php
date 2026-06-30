@@ -26,7 +26,7 @@ get_header();
       <?php if ( $all_partners->have_posts() ) : ?>
             <div class="row">
           <?php while ( $all_partners->have_posts() ) : $all_partners->the_post(); ?>	
-      <?php get_template_part( 'templates/partials/post-listing/listing-partner' ); ?>
+      <?php get_template_part( 'template-parts/cards/partner-card' ); ?>
           <?php endwhile; ?>
           <?php wp_reset_postdata() ?>
       </div>
