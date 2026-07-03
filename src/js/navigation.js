@@ -32,7 +32,7 @@
 
 	// --- Mobile submenu as accordion (accessibility) ---
 	const collapseEl = document.getElementById('navbarSupportedContent');
-	const MOBILE_BREAKPOINT = 767.98;
+	const MOBILE_BREAKPOINT = 991.98;
 	const isMobileNav = () => window.matchMedia('(max-width: ' + MOBILE_BREAKPOINT + 'px)').matches;
 	const searchPanel = document.getElementById('site-search-panel');
 	const searchTriggers = document.querySelectorAll('[data-nav-search-toggle]');

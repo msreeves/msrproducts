@@ -1191,7 +1191,7 @@
     }
   }
 
-  @media (max-width: 767.98px) {
+  @media (max-width: 991.98px) {
     .header-actions--desktop {
       display: none;
     }
@@ -1211,7 +1211,10 @@
       border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 
       .header-actions-menu {
-        gap: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 10px;
+        width: 100%;
       }
 
     }

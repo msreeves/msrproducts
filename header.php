@@ -70,7 +70,7 @@
 			</div>
 		</div>
 
-		<nav id="site-navigation" class="navbar navbar-expand-md navbar-light manic-nav" role="navigation" aria-label="Primary navigation">
+		<nav id="site-navigation" class="navbar navbar-expand-lg navbar-light manic-nav" role="navigation" aria-label="Primary navigation">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 					<?php
@@ -122,7 +122,7 @@
 			</div>
 		</nav>
 		<style id="msr-nav-desktop-hover-fallback">
-			@media (min-width: 768px) {
+			@media (min-width: 992px) {
 				#cssmenu > ul.manic-menu > li.has-sub:hover > ul.mega-menu,
 				#cssmenu > ul.manic-menu > li.has-sub:focus-within > ul.mega-menu {
 					opacity: 1 !important;
@@ -131,7 +131,7 @@
 					transform: translateY(0) !important;
 				}
 			}
-			@media (max-width: 767.98px) {
+			@media (max-width: 991.98px) {
 				#cssmenu > ul.manic-menu > li.has-sub.expanded > ul.mega-menu {
 					opacity: 1 !important;
 					visibility: visible !important;
@@ -181,7 +181,7 @@
 
 				var desktopHoverTimers = new WeakMap();
 				function desktopHoverAllowed() {
-					return window.matchMedia('(min-width: 768px) and (hover: hover) and (pointer: fine)').matches;
+					return window.matchMedia('(min-width: 992px) and (hover: hover) and (pointer: fine)').matches;
 				}
 				function clearDesktopTimer(item) {
 					var timer = desktopHoverTimers.get(item);
