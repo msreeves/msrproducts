@@ -14,7 +14,7 @@
 			<h1 class="page-title"><?php esc_html_e( 'Sorry, no luck in your search ', 'msrproducts' ); ?></h1>
 
 			<h3 class="text-center"><?php esc_html_e( 'Please try again with some different keywords.', 'msrproducts' ); ?></h3>
-			 <?php get_template_part( 'inc/controllers/searchbar' ); ?>
+			 <?php get_template_part( 'template-parts/forms/catalog-search' ); ?>
 			<?php endif; ?>
 		</div>
 	</div>

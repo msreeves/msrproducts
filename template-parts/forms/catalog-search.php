@@ -1,3 +1,10 @@
+<?php
+/**
+ * Catalog search form.
+ *
+ * @package msrproducts
+ */
+?>
 <div class="searchbar-wrap">
 	<?php $search_suggestions = function_exists( 'msrproducts_search_suggestions' ) ? msrproducts_search_suggestions( 12 ) : array(); ?>
 	<form role="search" method="get" id="searchform" class="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>">

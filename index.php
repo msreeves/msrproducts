@@ -24,11 +24,11 @@ if ( $page instanceof WP_Post ) {
       <div class="panel">
    <?php the_content(); ?>
    </div>
-	<?php get_template_part( 'inc/components/home-showcase' ); ?>
-    <?php get_template_part( 'inc/components/filterproducts' ); ?>
-    <?php get_template_part( 'inc/components/publicationlist' ); ?>
+	<?php get_template_part( 'template-parts/sections/home-showcase' ); ?>
+    <?php get_template_part( 'template-parts/sections/filterproducts' ); ?>
+    <?php get_template_part( 'template-parts/sections/publicationlist' ); ?>
     <?php get_template_part( 'templates/partials/leaderboard/billboard' ); ?>
-    <?php get_template_part( 'inc/components/partners' ); ?>
+    <?php get_template_part( 'template-parts/sections/partners' ); ?>
 </div>
 </section>
 	<?php

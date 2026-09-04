@@ -7,7 +7,7 @@
     "dev": "vite build --watch",
     "watch": "vite build --watch",
     "prod": "npm run production",
-    "production": "vite build",
+    "production": "vite build && node scripts/check-css-budget.mjs",
     "build": "npm run production"
   },
   "keywords": [],

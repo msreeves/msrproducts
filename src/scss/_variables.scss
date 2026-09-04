@@ -7,4 +7,19 @@ $yellow: #FFFF00;
 $header-text: 'Archivo Black', serif;
 $body-text: 'Fira Sans', sans-serif;
 
+// Composition kit roles (CONS-B7) — products programme fence
+$accent: #800020;
+$surface: #1a1a1a;
+$bg-dark: #0f0f0f;
+$text-primary: #f5f0ea;
+
+:root {
+	--msr-content-max: 72rem;
+	--msr-section-y: clamp(2.5rem, 5vw, 5rem);
+	--msr-accent: #{$accent};
+	--msr-surface: #{$surface};
+	--msr-bg: #{$bg-dark};
+	--msr-text: #{$text-primary};
+}
+
 @import 'include-media/dist/include-media';

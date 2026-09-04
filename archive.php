@@ -19,7 +19,7 @@ get_header();
 					<div class="panel">
 						<h1><?php the_archive_title(); ?></h1>
 						<h3><?php the_archive_description(); ?></h3>
-						<?php get_template_part( 'inc/controllers/searchbar' ); ?>
+						<?php get_template_part( 'template-parts/forms/catalog-search' ); ?>
 					</div>
 					<div class="row msr-card-grid products-card-grid">
 						<?php while ( have_posts() ) : the_post(); ?>

@@ -32,7 +32,7 @@ get_header();
 				</div>
 			</header><!-- .page-header -->
 			<div class="container">
-				<?php get_template_part( 'inc/controllers/searchbar' ); ?>
+				<?php get_template_part( 'template-parts/forms/catalog-search' ); ?>
 				<div class="row search-results-grid">
 			<?php
 			while ( have_posts() ) :
@@ -56,7 +56,7 @@ get_header();
 
 		<?php else : ?>
 			<div class="container">
-				<?php get_template_part( 'inc/controllers/searchbar' ); ?>
+				<?php get_template_part( 'template-parts/forms/catalog-search' ); ?>
 				<?php get_template_part( 'template-parts/content', 'none' ); ?>
 			</div>
 

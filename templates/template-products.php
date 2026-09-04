@@ -10,8 +10,8 @@ get_header();
 ?>
 <section class="products-template">
 	<div class="container">
-		<?php get_template_part( 'inc/controllers/searchbar' ); ?>
-		<?php get_template_part( 'inc/components/filterproducts' ); ?>
+		<?php get_template_part( 'template-parts/forms/catalog-search' ); ?>
+		<?php get_template_part( 'template-parts/sections/filterproducts' ); ?>
 	</div>
 </section>
 <?php

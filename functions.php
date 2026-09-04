@@ -23,6 +23,7 @@ require_once get_template_directory() . '/inc/msr-products-acf.php';
 require_once get_template_directory() . '/inc/msr-products-options.php';
 require_once get_template_directory() . '/inc/msr-products-seo.php';
 require_once get_template_directory() . '/inc/msr-products-setup.php';
+require_once get_template_directory() . '/inc/msr-products-perf.php';
 
 /**
  * WordPress often stores SVG dimensions as 1×1; strip width/height so layout/CSS can size them.
@@ -145,33 +146,6 @@ function enable_svg_upload( $upload_mimes ) {
 }
 
 add_filter( 'upload_mimes', 'enable_svg_upload', 10, 1 );
-
-if ( ! function_exists( 'tenweb_meta_description' ) ) {
-    function tenweb_meta_description() { 
-        global $post; 
- 
-        if ( is_singular() ) 
-        { 
-            $des_post = strip_tags( $post->post_content ); 
-            $des_post = strip_shortcodes( $des_post ); 
-            $des_post = str_replace( array("\n", "\r", "\t"), ' ', $des_post ); 
-            $des_post = mb_substr( $des_post, 0, 300, 'utf8' ); 
-            echo '<meta name="description" content="' . esc_attr( $des_post ) . '" />' . "\n"; 
-        } 
- 
-        if ( is_home() ) 
-        { 
-            $des_home = strip_tags( (string) get_bloginfo( "description" ) );
-            echo '<meta name="description" content="' . esc_attr( $des_home ) . '" />' . "\n"; 
-        } 
- 
-        if ( is_category() ) {
-            $des_cat = strip_tags(category_description());
-            echo '<meta name="description" content="' . esc_attr( $des_cat ) . '" />' . "\n";
-        } 
-    } 
-}
-add_action( 'wp_head', 'tenweb_meta_description');
 
 function post_per_page_control( $query ) {
      if ( is_archive() ) {

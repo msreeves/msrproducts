@@ -24,7 +24,7 @@ if ( is_array( $link ) && ! empty( $link['url'] ) ) {
 		<div class="my-auto">
 			<h2><?php the_title(); ?></h2>
 			<p><?php echo esc_html( $summary ? $summary : 'Publication summary placeholder content for portfolio storytelling.' ); ?></p>
-			<a href="<?php echo esc_url( $link_url ); ?>" target="_blank" rel="noopener noreferrer"><button type="button"><?php esc_html_e( 'Read more', 'msrproducts' ); ?></button></a>
+			<a class="button" href="<?php echo esc_url( $link_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Read more', 'msrproducts' ); ?></a>
 		</div>
 	</div>
 </div>
