@@ -1,9 +1,16 @@
-  <div class="p-5">
- <form role="search" method="get" id="searchform" class="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-       <div class="input-group ">
-            <label class="screen-reader-text" for="s"><?php _x( 'Search for:', 'label' ); ?></label>
-            <input class="form-control" size="10"  type="text" value="<?php echo get_search_query(); ?>" name="s" id="s" placeholder="Search....." />
-            <input type="submit" id="searchsubmit" value="Go" />
-        </div>
-    </form>
-        </div>
+<?php
+/**
+ * Catalog / archive search bar.
+ *
+ * @package msrproducts
+ */
+?>
+<div class="p-5 msr-site-search">
+	<form role="search" method="get" id="searchform" class="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php esc_attr_e( 'Site search', 'msrproducts' ); ?>">
+		<div class="input-group flex-wrap flex-md-nowrap">
+			<label class="screen-reader-text" for="s"><?php echo esc_html_x( 'Search for:', 'label', 'msrproducts' ); ?></label>
+			<input class="form-control" type="search" value="<?php echo esc_attr( get_search_query() ); ?>" name="s" id="s" placeholder="<?php esc_attr_e( 'Search…', 'msrproducts' ); ?>" autocomplete="off" />
+			<input class="btn btn-primary" type="submit" id="searchsubmit" value="<?php esc_attr_e( 'Search', 'msrproducts' ); ?>" />
+		</div>
+	</form>
+</div>
