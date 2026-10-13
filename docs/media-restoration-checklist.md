@@ -5,7 +5,7 @@ Use this after any DB pull/sync to restore real images and remove placeholders.
 ## 1) Source path mapping
 
 - Local uploads target:
-  - `/Applications/MAMP/htdocs/sites/wp/main/wp-content/uploads`
+  - `/Users/msreeves/Developer/msr-workspace/sites/wp/main/wp-content/uploads`
 - Typical source options:
   - Live server `wp-content/uploads`
   - Backup archive extracted uploads folder
@@ -26,16 +26,16 @@ Example shape:
 ## 3) URL consistency
 
 Ensure:
-- `home` = `http://127.0.0.1:8888/sites/wp/main`
-- `siteurl` = `http://127.0.0.1:8888/sites/wp/main`
+- `home` = `http://127.0.0.1/sites/wp/main`
+- `siteurl` = `http://127.0.0.1/sites/wp/main`
 
 Then flush rewrite rules:
-- `wp rewrite flush --hard --path="/Applications/MAMP/htdocs/sites/wp/main"`
+- `wp rewrite flush --hard --path="/Users/msreeves/Developer/msr-workspace/sites/wp/main"`
 
 ## 4) Verification script
 
 Run:
-- `php /Applications/MAMP/htdocs/scripts/verify-media-restoration.php`
+- `php /Users/msreeves/Developer/msr-workspace/scripts/verify-media-restoration.php`
 
 Pass criteria:
 - `missing_attachments` should be `0` (or near-zero if intentionally removed files).
@@ -46,11 +46,11 @@ Pass criteria:
 If files are present in uploads but WordPress meta still points to stale paths:
 
 - Dry run:
-  - `php /Applications/MAMP/htdocs/scripts/archive/relink-missing-attachments.php --dry-run`
+  - `php /Users/msreeves/Developer/msr-workspace/scripts/archive/relink-missing-attachments.php --dry-run`
 - Apply updates:
-  - `php /Applications/MAMP/htdocs/scripts/archive/relink-missing-attachments.php --apply`
+  - `php /Users/msreeves/Developer/msr-workspace/scripts/archive/relink-missing-attachments.php --apply`
 - Re-verify:
-  - `php /Applications/MAMP/htdocs/scripts/verify-media-restoration.php`
+  - `php /Users/msreeves/Developer/msr-workspace/scripts/verify-media-restoration.php`
 
 ## 5) UX check pages
 
