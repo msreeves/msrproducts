@@ -51,7 +51,7 @@ if ( ! function_exists( 'msrproducts_catalog_loop_inquiry_cta' ) ) {
 		$product_id = (int) $product->get_id();
 		echo '<div class="msr-loop-card-actions">';
 		echo '<a class="button msr-inquiry-btn" href="' . esc_url( $url ) . '">' . esc_html__( 'Inquire for collaboration', 'msrproducts' ) . '</a>';
-		echo '<button type="button" class="button msr-compare-btn" data-compare-toggle data-product-id="' . esc_attr( (string) $product_id ) . '">' . esc_html__( 'Compare', 'msrproducts' ) . '</button>';
+		get_template_part( 'template-parts/buttons/compare-toggle', null, array( 'product_id' => $product_id ) );
 		echo '</div>';
 	}
 }

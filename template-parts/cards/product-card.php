@@ -52,7 +52,7 @@ if ( ! is_wp_error( $categories ) && is_array( $categories ) ) {
 			<h3><?php the_title(); ?></h3>
 			<div class="card-actions">
 				<a href="<?php the_permalink(); ?>" class="card-link-btn"><?php esc_html_e( 'Request information', 'msrproducts' ); ?></a>
-				<button type="button" class="card-compare-btn" data-compare-toggle data-product-id="<?php echo esc_attr( (string) $post_id ); ?>"><?php esc_html_e( 'Compare', 'msrproducts' ); ?></button>
+				<?php get_template_part( 'template-parts/buttons/compare-toggle', null, array( 'product_id' => $post_id ) ); ?>
 			</div>
 		</div>
 	</article>

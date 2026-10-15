@@ -9,11 +9,11 @@
 - Canonical local URL:
   - `http://127.0.0.1/sites/wp/main/`
 - Normalize options:
-  - `wp option update home "http://127.0.0.1/sites/wp/main" --path="/Users/msreeves/Developer/msr-workspace/sites/wp/main"`
-  - `wp option update siteurl "http://127.0.0.1/sites/wp/main" --path="/Users/msreeves/Developer/msr-workspace/sites/wp/main"`
+  - `wp option update home "http://127.0.0.1/sites/wp/main" --path="/Users/msreeves/Developer/workspace/sites/wp/main"`
+  - `wp option update siteurl "http://127.0.0.1/sites/wp/main" --path="/Users/msreeves/Developer/workspace/sites/wp/main"`
 
 ## 3) Core pages and policy pages
-- `wp eval 'msrproducts_ensure_core_pages();' --path="/Users/msreeves/Developer/msr-workspace/sites/wp/main"`
+- `wp eval 'msrproducts_ensure_core_pages();' --path="/Users/msreeves/Developer/workspace/sites/wp/main"`
 
 ## 4) Permalink reliability
 - Local setup uses plain/query routes to avoid Apache rewrite drift.

@@ -80,12 +80,12 @@
 			<h2 id="compare-preview-title"><?php echo esc_html( msrproducts_get_compare_modal_title() ); ?></h2>
 			<p><?php echo esc_html( msrproducts_get_compare_modal_lead() ); ?></p>
 			<a class="button" id="compare-preview-link" href="<?php echo esc_url( $compare_url ); ?>"><?php echo esc_html( msrproducts_get_compare_modal_cta() ); ?></a>
-			<button type="button" class="button button--ghost" id="compare-preview-close">Close</button>
+			<?php get_template_part( 'template-parts/buttons/compare-preview-close' ); ?>
 		</div>
 	</div>
 	<div id="cookie-consent-banner" class="cookie-consent-banner" hidden aria-live="polite">
 		<p><?php echo esc_html( msrproducts_get_cookie_consent_message() ); ?> <a href="<?php echo esc_url( $cookie_url ); ?>">Read cookie policy</a>.</p>
-		<button type="button" class="button" id="cookie-consent-accept">Accept</button>
+		<?php get_template_part( 'template-parts/buttons/cookie-consent-accept' ); ?>
 	</div>
 <?php wp_footer(); ?>
 </body>
