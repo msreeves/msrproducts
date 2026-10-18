@@ -1,43 +1,29 @@
 <?php
 /**
- * Displays the featured image
+ * Displays the featured image or type icon fallback.
  *
  * @package WordPress
  * @subpackage msrproducts
- * @since msrproducts 1.0
  */
 
 $featured_media_inner_classes = '';
-
-// Make the featured media thinner on archive pages.
 if ( ! is_single() ) {
 	$featured_media_inner_classes .= ' medium';
 }
+$post_id = get_the_ID();
 ?>
-
 <figure class="featured-media">
-
-	<div class="featured-media-inner <?php echo $featured_media_inner_classes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static output ?>">
-
+	<div class="featured-media-inner <?php echo $featured_media_inner_classes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
 		<?php
-		$thumb_id = get_post_thumbnail_id();
-		if ( ! post_password_required() && $thumb_id && function_exists( 'msrproducts_attachment_file_exists' ) && msrproducts_attachment_file_exists( $thumb_id ) ) {
-			the_post_thumbnail();
+		if ( function_exists( 'msrproducts_render_post_media' ) ) {
+			msrproducts_render_post_media( (int) $post_id );
 		} else {
-			echo '<img src="' . esc_url( function_exists( 'msrproducts_placeholder_image_url' ) ? msrproducts_placeholder_image_url() : '' ) . '" alt="' . esc_attr__( 'Placeholder image', 'msrproducts' ) . '" loading="lazy" decoding="async" />';
+			the_post_thumbnail();
 		}
-
 		$caption = ( ! post_password_required() && has_post_thumbnail() ) ? get_the_post_thumbnail_caption() : '';
-
 		if ( $caption ) {
-			?>
-
-			<figcaption class="wp-caption-text"><?php echo wp_kses_post( $caption ); ?></figcaption>
-
-			<?php
+			echo '<figcaption class="wp-caption-text">' . wp_kses_post( $caption ) . '</figcaption>';
 		}
 		?>
-
-	</div><!-- .featured-media-inner -->
-
-</figure><!-- .featured-media -->
+	</div>
+</figure>

@@ -154,8 +154,14 @@ if ( is_wp_error( $product_terms ) ) {
 					if ( $thumb_id && function_exists( 'msrproducts_attachment_file_exists' ) && msrproducts_attachment_file_exists( $thumb_id ) ) {
 						$img_url = wp_get_attachment_image_url( $thumb_id, 'large' );
 					}
-					if ( ! $img_url ) {
-						$img_url = function_exists( 'msrproducts_placeholder_image_url' ) ? msrproducts_placeholder_image_url() : '';
+					if ( ! $img_url && function_exists( 'msrproducts_resolve_product_thumbnail_id' ) ) {
+						$resolved = msrproducts_resolve_product_thumbnail_id( (int) get_the_ID() );
+						if ( $resolved > 0 && msrproducts_attachment_file_exists( $resolved ) ) {
+							$img_url = (string) wp_get_attachment_image_url( $resolved, 'large' );
+						}
+					}
+					if ( ! $img_url && function_exists( 'msrproducts_category_icon_url' ) ) {
+						$img_url = msrproducts_category_icon_url( msrproducts_get_product_category_icon_slug( (int) get_the_ID() ) );
 					}
 					if ( function_exists( 'wc_get_product' ) ) {
 						$product = wc_get_product( get_the_ID() );
@@ -211,8 +217,8 @@ if ( is_wp_error( $product_terms ) ) {
 				if ( $term_thumb_id > 0 && function_exists( 'msrproducts_attachment_file_exists' ) && msrproducts_attachment_file_exists( $term_thumb_id ) ) {
 					$term_img_url = (string) wp_get_attachment_image_url( $term_thumb_id, 'medium_large' );
 				}
-				if ( ! $term_img_url ) {
-					$term_img_url = function_exists( 'msrproducts_placeholder_image_url' ) ? msrproducts_placeholder_image_url() : '';
+				if ( ! $term_img_url && function_exists( 'msrproducts_term_tile_image_url' ) ) {
+					$term_img_url = msrproducts_term_tile_image_url( $term );
 				}
 				?>
 				<a class="home-category-tile" href="<?php echo esc_url( $term_url ); ?>">
@@ -239,8 +245,8 @@ if ( is_wp_error( $product_terms ) ) {
 					$image_url = (string) $card['image']['url'];
 					$image_alt = ! empty( $card['image']['alt'] ) ? (string) $card['image']['alt'] : (string) $card['title'];
 				}
-				if ( ! $image_url && function_exists( 'msrproducts_placeholder_image_url' ) ) {
-					$image_url = msrproducts_placeholder_image_url();
+				if ( ! $image_url && function_exists( 'msrproducts_marketing_card_image_url' ) ) {
+					$image_url = msrproducts_marketing_card_image_url( $card['image'], 'publication' );
 					$image_alt = (string) $card['title'];
 				}
 				?>
