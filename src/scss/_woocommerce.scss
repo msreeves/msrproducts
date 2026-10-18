@@ -330,6 +330,10 @@
     }
   }
 
+body.single-product .woocommerce-product-gallery.images {
+  opacity: 1 !important;
+}
+
   div.product {
     display: grid;
     grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
