@@ -350,12 +350,51 @@
       margin: 0;
       opacity: 1 !important;
       max-width: 460px;
+      width: 100%;
       justify-self: start;
       position: relative;
+      overflow: hidden;
 
-      // Before Flexslider inits, Woo stacks every gallery slide — show main only.
-      &:not(.flexslider) .woocommerce-product-gallery__wrapper > .woocommerce-product-gallery__image:not(:first-child) {
+      .woocommerce-product-gallery__wrapper {
+        overflow: hidden;
+        max-width: 100%;
+      }
+
+      // Woo Flexslider floats slides inside a wide wrapper; clip to one frame (no default Woo CSS — theme disables wc styles).
+      .woocommerce-product-gallery__wrapper > .woocommerce-product-gallery__image:not(:first-child) {
         display: none;
+      }
+
+      &:has(.flex-active-slide) .woocommerce-product-gallery__wrapper > .woocommerce-product-gallery__image {
+        display: block;
+      }
+
+      &:has(.flex-active-slide) .woocommerce-product-gallery__image:not(.flex-active-slide) {
+        display: none !important;
+      }
+
+      .flex-control-thumbs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 0.75rem 0 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+          flex: 0 0 auto;
+          width: 72px;
+          min-height: 44px;
+
+          img {
+            display: block;
+            min-height: 44px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+          }
+        }
       }
 
       img {
@@ -373,8 +412,10 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 42px;
-        height: 42px;
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
         border: 1px solid rgba(0, 0, 0, 0.2);
         border-radius: 999px;
         background: rgba(255, 255, 255, 0.96);
@@ -457,13 +498,19 @@
       .product_meta {
         margin-top: 0.6rem;
         font-size: 0.85rem;
-        color: $grey;
+        color: #3d3d3d;
         border-top: 1px solid rgba(0, 0, 0, 0.1);
         padding-top: 0.7rem;
 
         > span {
           display: block;
           margin-bottom: 0.25rem;
+        }
+
+        a {
+          color: #1a1a1a;
+          text-decoration: underline;
+          text-underline-offset: 2px;
         }
       }
     }

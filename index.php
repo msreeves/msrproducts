@@ -10,7 +10,7 @@
 get_header();
 
 ?>
-<main id="site-content">
+<main id="site-content" class="msr-home">
 <?php
 $page = msrproducts_index_rich_home_post();
 
@@ -18,20 +18,9 @@ if ( $page instanceof WP_Post ) {
 	global $post;
 	$post = $page;
 	setup_postdata( $post );
-	?>
-  <section>
-    <div class="container">
-      <div class="panel">
-   <?php the_content(); ?>
-   </div>
-	<?php get_template_part( 'template-parts/sections/home-showcase' ); ?>
-    <?php get_template_part( 'template-parts/sections/filterproducts' ); ?>
-    <?php get_template_part( 'template-parts/sections/publicationlist' ); ?>
-    <?php get_template_part( 'templates/partials/leaderboard/billboard' ); ?>
-    <?php get_template_part( 'template-parts/sections/partners' ); ?>
-</div>
-</section>
-	<?php
+	get_template_part( 'template-parts/sections/home-showcase' );
+	get_template_part( 'template-parts/sections/home-catalog-cta' );
+	get_template_part( 'template-parts/sections/partners' );
 	wp_reset_postdata();
 } elseif ( have_posts() ) {
 	while ( have_posts() ) {

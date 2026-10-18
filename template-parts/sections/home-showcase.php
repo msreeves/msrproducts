@@ -108,7 +108,7 @@ $featured_products = new WP_Query(
 	array(
 		'post_type'      => 'product',
 		'post_status'    => 'publish',
-		'posts_per_page' => 8,
+		'posts_per_page' => 4,
 		'orderby'        => 'date',
 		'order'          => 'DESC',
 	)

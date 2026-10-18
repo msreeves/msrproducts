@@ -384,7 +384,7 @@ function msrproducts_fix_main_query_posts_array() {
 add_action( 'template_redirect', 'msrproducts_fix_main_query_posts_array', 0 );
 
 /**
- * Page used for rich homepage in index.php (content + Woo sections + partners).
+ * Page used for curated homepage in index.php (showcase + shop CTA + partners).
  */
 function msrproducts_index_rich_home_post() {
 	if ( get_option( 'show_on_front' ) !== 'page' ) {
