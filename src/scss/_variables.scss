@@ -1,25 +1,38 @@
-$primary: #000;
-$red: #800020;
+$primary: #2f4f3e;
+$red: #b45309;
 $white: #fff;
-$grey: #899499;
-$yellow: #FFFF00;
+$grey: #5c5c5c;
+$yellow: #ffff00;
 
 $header-text: 'Archivo Black', serif;
 $body-text: 'Fira Sans', sans-serif;
 
-// Composition kit roles (CONS-B7) — products programme fence
-$accent: #800020;
-$surface: #1a1a1a;
-$bg-dark: #0f0f0f;
-$text-primary: #f5f0ea;
+// Fieldcrest — calm workwear catalogue (light surface)
+$accent: #2f4f3e;
+$accent-hover: #243d30;
+$surface: #ffffff;
+$bg-page: #f7f5f2;
+$border-subtle: #e8e4de;
+$text-primary: #1a1a1a;
+$text-secondary: #5c5c5c;
+$footer-bg: #1a1a1a;
+$footer-text: #f5f0ea;
+
+// Legacy aliases (composition kit)
+$bg-dark: $footer-bg;
 
 :root {
-	--msr-content-max: 72rem;
+	--msr-content-max: 80rem;
 	--msr-section-y: clamp(2.5rem, 5vw, 5rem);
 	--msr-accent: #{$accent};
+	--msr-accent-hover: #{$accent-hover};
 	--msr-surface: #{$surface};
-	--msr-bg: #{$bg-dark};
+	--msr-bg: #{$bg-page};
 	--msr-text: #{$text-primary};
+	--msr-text-muted: #{$text-secondary};
+	--msr-border: #{$border-subtle};
+	--msr-radius: 8px;
+	--msr-radius-lg: 12px;
 }
 
 @import 'include-media/dist/include-media';

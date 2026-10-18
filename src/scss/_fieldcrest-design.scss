@@ -1,0 +1,142 @@
+// Fieldcrest Supply Co. — demonstration catalogue design system (code-first).
+
+body.msr-products,
+body.post-type-archive-product,
+body.single-product,
+body.home.msr-products {
+	background-color: var(--msr-bg);
+	color: var(--msr-text);
+}
+
+body.msr-products #site-content,
+body.msr-products .msr-home {
+	color: var(--msr-text);
+}
+
+.promo-strip {
+	background: $accent;
+	color: $footer-text;
+
+	a {
+		color: inherit;
+	}
+}
+
+.home-hero-banner {
+	background: linear-gradient(
+		105deg,
+		$accent 0%,
+		$accent 42%,
+		$surface 42%,
+		$surface 100%
+	);
+	border: 1px solid var(--msr-border);
+	border-radius: var(--msr-radius-lg);
+	box-shadow: 0 12px 40px rgba(26, 26, 26, 0.06);
+
+	.eyebrow {
+		color: rgba(245, 240, 234, 0.92);
+	}
+
+	h1,
+	p {
+		color: var(--msr-text);
+	}
+
+	@media (min-width: 768px) {
+		.home-hero-banner__content {
+			color: $footer-text;
+
+			h1,
+			p {
+				color: $footer-text;
+			}
+
+			.eyebrow {
+				color: rgba(245, 240, 234, 0.85);
+			}
+		}
+	}
+
+	.home-hero-banner__actions .button.primary,
+	.home-hero-banner__actions a.button:first-child {
+		background: $footer-text;
+		color: $accent;
+		border-radius: 6px;
+		border: 0;
+
+		&:hover {
+			background: $white;
+			color: $accent-hover;
+		}
+	}
+
+	.home-hero-banner__actions .button.secondary,
+	.home-hero-banner__actions a.button:nth-child(2) {
+		background: transparent;
+		color: $footer-text;
+		border: 1px solid rgba(245, 240, 234, 0.55);
+		border-radius: 6px;
+
+		@media (min-width: 768px) {
+			color: var(--msr-text);
+			border-color: var(--msr-border);
+		}
+	}
+}
+
+.home-trust-strip li {
+	background: $surface;
+	border-color: var(--msr-border);
+}
+
+.home-process__card,
+.home-image-card,
+.modern-product-filters .filter-sidebar {
+	border-color: var(--msr-border);
+	background: $surface;
+	border-radius: var(--msr-radius);
+}
+
+.search-hub__form button,
+.card-link-btn,
+.msr-inquiry-btn,
+.btn-primary,
+.button.primary {
+	background: $accent !important;
+	border-color: $accent !important;
+	color: $footer-text !important;
+	border-radius: 6px !important;
+
+	&:hover {
+		background: $accent-hover !important;
+		border-color: $accent-hover !important;
+	}
+}
+
+.modern-footer {
+	background: $footer-bg;
+	color: $footer-text;
+	border-top: 0;
+
+	.modern-footer__col h2 {
+		color: $footer-text;
+	}
+
+	.modern-footer__col a {
+		color: rgba(245, 240, 234, 0.92);
+	}
+
+	.modern-footer__note {
+		color: rgba(245, 240, 234, 0.72);
+	}
+
+	.modern-footer__social a {
+		border-color: rgba(245, 240, 234, 0.35);
+		color: $footer-text;
+	}
+}
+
+.woocommerce-Price-amount {
+	color: var(--msr-text);
+}
