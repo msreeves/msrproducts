@@ -33,7 +33,8 @@ if ( ! is_wp_error( $categories ) && is_array( $categories ) ) {
 		if ( is_wp_error( $term_link ) ) {
 			$term_link = home_url( '/?post_type=product' );
 		}
-		$safe_labels[] = '<a href="' . esc_url( $term_link ) . '" title="' . esc_attr( sprintf( __( 'View all posts in %s', 'msrproducts' ), $category->name ) ) . '"><span>' . esc_html( $category->name ) . '</span></a>';
+		$label = msrproducts_plain_text( $category->name );
+		$safe_labels[] = '<a href="' . esc_url( $term_link ) . '" title="' . esc_attr( sprintf( __( 'View all posts in %s', 'msrproducts' ), $label ) ) . '"><span>' . esc_html( $label ) . '</span></a>';
 	}
 }
 ?>

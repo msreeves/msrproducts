@@ -163,9 +163,9 @@ if ( $featured_products->have_posts() ) {
 <section class="home-hero-banner" aria-labelledby="home-hero-title">
 	<div class="container">
 		<div class="home-hero-banner__content">
-			<p class="eyebrow"><?php echo esc_html( $hero_eyebrow ); ?></p>
-			<h1 id="home-hero-title"><?php echo esc_html( $hero_title ); ?></h1>
-			<p><?php echo esc_html( $hero_copy ); ?></p>
+			<p class="eyebrow"><?php echo msrproducts_esc_html_text( $hero_eyebrow ); ?></p>
+			<h1 id="home-hero-title"><?php echo msrproducts_esc_html_text( $hero_title ); ?></h1>
+			<p><?php echo msrproducts_esc_html_text( $hero_copy ); ?></p>
 			<div class="home-hero-banner__actions">
 				<a class="button" href="<?php echo esc_url( $shop_url ); ?>"><?php echo esc_html( msrproducts_get_hero_primary_cta() ); ?></a>
 				<a class="button button--ghost" href="<?php echo esc_url( $contact_url ); ?>"><?php echo esc_html( msrproducts_get_hero_secondary_cta() ); ?></a>
@@ -268,10 +268,10 @@ if ( $featured_products->have_posts() ) {
 				<a class="home-category-tile" href="<?php echo esc_url( $term_url ); ?>">
 					<span class="home-category-tile__image-wrap<?php echo $tile_is_icon ? ' home-category-tile__image-wrap--icon' : ''; ?>">
 						<?php if ( $term_img_url !== '' ) : ?>
-							<img src="<?php echo esc_url( $term_img_url ); ?>" alt="<?php echo esc_attr( $term->name ); ?>" loading="lazy" decoding="async" />
+							<img src="<?php echo esc_url( $term_img_url ); ?>" alt="<?php echo esc_attr( msrproducts_plain_text( $term->name ) ); ?>" loading="lazy" decoding="async" />
 						<?php endif; ?>
 					</span>
-					<span class="home-category-tile__name"><?php echo esc_html( $term->name ); ?></span>
+					<span class="home-category-tile__name"><?php echo msrproducts_esc_html_text( $term->name ); ?></span>
 					<span class="home-category-tile__meta"><?php echo esc_html( (string) $term->count ); ?> products</span>
 				</a>
 			<?php endforeach; ?>
@@ -300,9 +300,9 @@ if ( $featured_products->have_posts() ) {
 						</div>
 					<?php endif; ?>
 					<div class="home-editorial-banner__body">
-						<h3><?php echo esc_html( $card['title'] ); ?></h3>
-						<p><?php echo esc_html( $card['copy'] ); ?></p>
-						<a class="button button--ghost home-editorial-banner__cta" href="<?php echo esc_url( $card['url'] ); ?>"><?php echo esc_html( $card['label'] ); ?></a>
+						<h3><?php echo msrproducts_esc_html_text( $card['title'] ); ?></h3>
+						<p><?php echo msrproducts_esc_html_text( $card['copy'] ); ?></p>
+						<a class="button button--ghost home-editorial-banner__cta" href="<?php echo esc_url( $card['url'] ); ?>"><?php echo msrproducts_esc_html_text( $card['label'] ); ?></a>
 					</div>
 				</article>
 			<?php endforeach; ?>
@@ -317,8 +317,8 @@ if ( $featured_products->have_posts() ) {
 			<?php foreach ( $process_cards as $card ) : ?>
 				<article>
 					<i class="<?php echo esc_attr( $card['icon'] ); ?>" aria-hidden="true"></i>
-					<h3><?php echo esc_html( $card['title'] ); ?></h3>
-					<p><?php echo esc_html( $card['copy'] ); ?></p>
+					<h3><?php echo msrproducts_esc_html_text( $card['title'] ); ?></h3>
+					<p><?php echo msrproducts_esc_html_text( $card['copy'] ); ?></p>
 				</article>
 			<?php endforeach; ?>
 		</div>

@@ -29,7 +29,7 @@ if ( $active_filter === '' ) {
 							<?php continue; ?>
 						<?php endif; ?>
 						<li class="filter-nav__item <?php echo $active_filter === $post_category->slug ? 'active' : ''; ?>">
-							<button type="button" class="filter-nav__btn" data-filter-link="<?php echo esc_attr( $post_category->slug ); ?>" aria-pressed="<?php echo $active_filter === $post_category->slug ? 'true' : 'false'; ?>"><?php echo esc_html( $post_category->name ); ?></button>
+							<button type="button" class="filter-nav__btn" data-filter-link="<?php echo esc_attr( $post_category->slug ); ?>" aria-pressed="<?php echo $active_filter === $post_category->slug ? 'true' : 'false'; ?>"><?php echo msrproducts_esc_html_text( $post_category->name ); ?></button>
 						</li>
 					<?php endforeach; ?>
 				</ul>
