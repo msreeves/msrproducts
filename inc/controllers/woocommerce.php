@@ -244,3 +244,23 @@ if ( ! function_exists( 'msrproducts_limit_quantity_to_five' ) ) {
 }
 add_filter( 'woocommerce_quantity_input_args', 'msrproducts_limit_quantity_to_five', 10, 2 );
 
+if ( ! function_exists( 'msrproducts_single_product_gallery_visible' ) ) {
+	/**
+	 * Woo sets inline opacity:0 until Flexslider runs; theme disables default WC CSS so show the hero immediately.
+	 */
+	function msrproducts_single_product_gallery_visible() {
+		if ( ! function_exists( 'is_product' ) || ! is_product() ) {
+			return;
+		}
+		$js = "(function(){var g=document.querySelector('.woocommerce-product-gallery');if(g){g.style.opacity='1';}})();";
+		if ( wp_script_is( 'wc-single-product', 'enqueued' ) ) {
+			wp_add_inline_script( 'wc-single-product', $js, 'after' );
+		} else {
+			wp_register_script( 'msrproducts-gallery-visible', '', array(), '1.0', true );
+			wp_enqueue_script( 'msrproducts-gallery-visible' );
+			wp_add_inline_script( 'msrproducts-gallery-visible', $js );
+		}
+	}
+}
+add_action( 'wp_enqueue_scripts', 'msrproducts_single_product_gallery_visible', 100 );
+

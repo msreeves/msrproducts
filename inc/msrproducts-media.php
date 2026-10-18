@@ -229,11 +229,23 @@ add_filter(
 		if ( ! $product instanceof WC_Product || ! msrproducts_load_product_image_lib() ) {
 			return $ids;
 		}
-		$sku = (string) $product->get_sku();
+		$product_id = (int) $product->get_id();
+		$sku        = (string) $product->get_sku();
 		if ( $sku === '' ) {
 			return $ids;
 		}
-		$ordered = msrproducts_gallery_attachment_ids_for_product( (int) $product->get_id(), $sku );
+		if ( function_exists( 'msrproducts_sku_uses_demo_image' ) && msrproducts_sku_uses_demo_image( $product_id, $sku ) ) {
+			return array();
+		}
+		$thumb = (int) $product->get_image_id();
+		if ( $thumb > 0 ) {
+			$path = get_attached_file( $thumb );
+			$base = is_string( $path ) ? strtolower( basename( $path ) ) : '';
+			if ( $base !== '' && strpos( $base, 'msr-demo-' ) === 0 ) {
+				return array();
+			}
+		}
+		$ordered = msrproducts_gallery_attachment_ids_for_product( $product_id, $sku );
 		if ( count( $ordered ) <= 1 ) {
 			return $ids;
 		}
