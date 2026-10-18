@@ -269,7 +269,7 @@ if ( $featured_products->have_posts() ) {
 				}
 				?>
 				<?php
-				$tile_is_icon = $term_img_url !== '' && preg_match( '/category-[^/]+\.svg$/i', $term_img_url );
+				$tile_is_icon = $term_img_url !== '' && preg_match( '#category-[^/]+\.svg$#i', $term_img_url );
 				?>
 				<a class="home-category-tile" href="<?php echo esc_url( $term_url ); ?>">
 					<span class="home-category-tile__image-wrap<?php echo $tile_is_icon ? ' home-category-tile__image-wrap--icon' : ''; ?>">
