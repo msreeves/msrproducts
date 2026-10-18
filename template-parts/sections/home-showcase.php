@@ -40,43 +40,43 @@ if ( ! function_exists( 'msrproducts_home_field' ) ) {
 	}
 }
 
-$hero_eyebrow = (string) msrproducts_home_field( 'home_hero_eyebrow', 'Portfolio-first product showcase' );
-$hero_title   = (string) msrproducts_home_field( 'home_hero_title', 'Modern product experiences with technical depth and measurable outcomes.' );
-$hero_copy    = (string) msrproducts_home_field( 'home_hero_copy', 'Browse project work, compare approaches, and request collaboration details directly from each product page.' );
+$hero_eyebrow = (string) msrproducts_home_field( 'home_hero_eyebrow', 'Demonstration product store' );
+$hero_title   = (string) msrproducts_home_field( 'home_hero_title', 'Shop bags, apparel, watches, and training gear with full product detail pages.' );
+$hero_copy    = (string) msrproducts_home_field( 'home_hero_copy', 'Every listing includes pricing, photo galleries, and enquiry options — like a modern ecommerce storefront.' );
 
-$process_title = (string) msrproducts_home_field( 'home_process_title', 'How collaboration works' );
+$process_title = (string) msrproducts_home_field( 'home_process_title', 'How this shop works' );
 $process_cards = array(
 	array(
 		'icon'  => (string) msrproducts_home_field( 'home_process_1_icon', 'fa-solid fa-magnifying-glass' ),
-		'title' => (string) msrproducts_home_field( 'home_process_1_title', '1. Discover' ),
-		'copy'  => (string) msrproducts_home_field( 'home_process_1_copy', 'Review portfolio projects, technical blueprints, and business impact summaries.' ),
+		'title' => (string) msrproducts_home_field( 'home_process_1_title', '1. Browse the catalogue' ),
+		'copy'  => (string) msrproducts_home_field( 'home_process_1_copy', 'Filter by category, open a product page, and swipe through gallery images.' ),
 	),
 	array(
 		'icon'  => (string) msrproducts_home_field( 'home_process_2_icon', 'fa-solid fa-pen-ruler' ),
-		'title' => (string) msrproducts_home_field( 'home_process_2_title', '2. Define' ),
-		'copy'  => (string) msrproducts_home_field( 'home_process_2_copy', 'Align scope, constraints, and timeline with a practical delivery roadmap.' ),
+		'title' => (string) msrproducts_home_field( 'home_process_2_title', '2. Compare & shortlist' ),
+		'copy'  => (string) msrproducts_home_field( 'home_process_2_copy', 'Use compare to review up to three products before you enquire.' ),
 	),
 	array(
 		'icon'  => (string) msrproducts_home_field( 'home_process_3_icon', 'fa-solid fa-rocket' ),
-		'title' => (string) msrproducts_home_field( 'home_process_3_title', '3. Deliver' ),
-		'copy'  => (string) msrproducts_home_field( 'home_process_3_copy', 'Ship polished outcomes with reusable assets, handover notes, and support options.' ),
+		'title' => (string) msrproducts_home_field( 'home_process_3_title', '3. Request details' ),
+		'copy'  => (string) msrproducts_home_field( 'home_process_3_copy', 'Send an enquiry from any product — no checkout in this portfolio demo.' ),
 	),
 );
 
-$editorial_title = (string) msrproducts_home_field( 'home_editorial_title', 'Design stories and collaboration highlights' );
+$editorial_title = (string) msrproducts_home_field( 'home_editorial_title', 'Highlights from the catalogue' );
 $editorial_cards = array(
 	array(
 		'image' => msrproducts_home_field( 'home_editorial_1_image', array() ),
-		'title' => (string) msrproducts_home_field( 'home_editorial_1_title', 'Case Study Spotlight' ),
-		'copy'  => (string) msrproducts_home_field( 'home_editorial_1_copy', 'From problem framing to implementation impact, every project page includes practical context for technical and design decisions.' ),
-		'label' => (string) msrproducts_home_field( 'home_editorial_1_label', 'Read project stories' ),
+		'title' => (string) msrproducts_home_field( 'home_editorial_1_title', 'New in accessories' ),
+		'copy'  => (string) msrproducts_home_field( 'home_editorial_1_copy', 'Bags and everyday carry with multi-angle galleries and specification-ready layouts.' ),
+		'label' => (string) msrproducts_home_field( 'home_editorial_1_label', 'Shop accessories' ),
 		'url'   => (string) msrproducts_home_field( 'home_editorial_1_url', $shop_url ),
 	),
 	array(
 		'image' => msrproducts_home_field( 'home_editorial_2_image', array() ),
-		'title' => (string) msrproducts_home_field( 'home_editorial_2_title', 'Partnership Programs' ),
-		'copy'  => (string) msrproducts_home_field( 'home_editorial_2_copy', 'Collaborate on product UX, front-end delivery, and scalable content systems with a portfolio-first workflow.' ),
-		'label' => (string) msrproducts_home_field( 'home_editorial_2_label', 'Discuss partnerships' ),
+		'title' => (string) msrproducts_home_field( 'home_editorial_2_title', 'Training & wellness' ),
+		'copy'  => (string) msrproducts_home_field( 'home_editorial_2_copy', 'Fitness equipment with clear imagery — curated items only where photos meet catalogue standards.' ),
+		'label' => (string) msrproducts_home_field( 'home_editorial_2_label', 'Shop fitness' ),
 		'url'   => (string) msrproducts_home_field( 'home_editorial_2_url', $contact_url ),
 	),
 );
@@ -201,7 +201,7 @@ if ( is_wp_error( $product_terms ) ) {
 				<?php endwhile; ?>
 				<?php wp_reset_postdata(); ?>
 			<?php else : ?>
-				<p class="msr-empty-state">No featured projects available yet.</p>
+				<p class="msr-empty-state">No featured products available yet.</p>
 			<?php endif; ?>
 		</div>
 	</div>
@@ -234,7 +234,7 @@ if ( is_wp_error( $product_terms ) ) {
 						<img src="<?php echo esc_url( $term_img_url ); ?>" alt="<?php echo esc_attr( $term->name ); ?>" loading="lazy" decoding="async" />
 					</span>
 					<span class="home-category-tile__name"><?php echo esc_html( $term->name ); ?></span>
-					<span class="home-category-tile__meta"><?php echo esc_html( (string) $term->count ); ?> projects</span>
+					<span class="home-category-tile__meta"><?php echo esc_html( (string) $term->count ); ?> products</span>
 				</a>
 			<?php endforeach; ?>
 		</div>
