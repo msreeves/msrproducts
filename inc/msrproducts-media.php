@@ -157,6 +157,41 @@ function msrproducts_category_icon_slug_for_term( string $slug ): string {
 }
 
 /**
+ * First product in a category with a real on-disk thumbnail.
+ *
+ * @return int Attachment ID or 0.
+ */
+function msrproducts_best_product_thumbnail_for_term( int $term_id ): int {
+	$sample = get_posts(
+		array(
+			'post_type'      => 'product',
+			'post_status'    => 'publish',
+			'posts_per_page' => 12,
+			'orderby'        => 'date',
+			'order'          => 'DESC',
+			'fields'         => 'ids',
+			'tax_query'      => array(
+				array(
+					'taxonomy' => 'product_cat',
+					'field'    => 'term_id',
+					'terms'    => array( $term_id ),
+				),
+			),
+		)
+	);
+	foreach ( $sample as $pid ) {
+		$pid = (int) $pid;
+		$tid = function_exists( 'msrproducts_resolve_product_thumbnail_id' )
+			? msrproducts_resolve_product_thumbnail_id( $pid )
+			: (int) get_post_meta( $pid, '_thumbnail_id', true );
+		if ( $tid > 0 && msrproducts_attachment_file_exists( $tid ) ) {
+			return $tid;
+		}
+	}
+	return 0;
+}
+
+/**
  * Best image URL for a category tile: term thumb, sample product, then icon.
  */
 function msrproducts_term_tile_image_url( WP_Term $term ): string {
@@ -167,31 +202,11 @@ function msrproducts_term_tile_image_url( WP_Term $term ): string {
 			return $url;
 		}
 	}
-	$sample = get_posts(
-		array(
-			'post_type'      => 'product',
-			'post_status'    => 'publish',
-			'posts_per_page' => 1,
-			'fields'         => 'ids',
-			'tax_query'      => array(
-				array(
-					'taxonomy' => 'product_cat',
-					'field'    => 'term_id',
-					'terms'    => array( (int) $term->term_id ),
-				),
-			),
-		)
-	);
-	if ( ! empty( $sample ) ) {
-		$pid = (int) $sample[0];
-		$tid = function_exists( 'msrproducts_resolve_product_thumbnail_id' )
-			? msrproducts_resolve_product_thumbnail_id( $pid )
-			: (int) get_post_meta( $pid, '_thumbnail_id', true );
-		if ( $tid > 0 && msrproducts_attachment_file_exists( $tid ) ) {
-			$url = wp_get_attachment_image_url( $tid, 'medium_large' );
-			if ( is_string( $url ) && $url !== '' ) {
-				return $url;
-			}
+	$tid = msrproducts_best_product_thumbnail_for_term( (int) $term->term_id );
+	if ( $tid > 0 ) {
+		$url = wp_get_attachment_image_url( $tid, 'medium_large' );
+		if ( is_string( $url ) && $url !== '' ) {
+			return $url;
 		}
 	}
 	return msrproducts_category_icon_url( msrproducts_category_icon_slug_for_term( $term->slug ) );

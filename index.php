@@ -19,7 +19,6 @@ if ( $page instanceof WP_Post ) {
 	$post = $page;
 	setup_postdata( $post );
 	get_template_part( 'template-parts/sections/home-showcase' );
-	get_template_part( 'template-parts/sections/home-catalog-cta' );
 	get_template_part( 'template-parts/sections/partners' );
 	wp_reset_postdata();
 } elseif ( have_posts() ) {

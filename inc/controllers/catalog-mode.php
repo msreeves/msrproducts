@@ -50,7 +50,7 @@ if ( ! function_exists( 'msrproducts_catalog_loop_inquiry_cta' ) ) {
 		$url = msrproducts_get_inquiry_url( (int) $product->get_id() );
 		$product_id = (int) $product->get_id();
 		echo '<div class="msr-loop-card-actions">';
-		echo '<a class="button msr-inquiry-btn" href="' . esc_url( $url ) . '">' . esc_html__( 'Inquire for collaboration', 'msrproducts' ) . '</a>';
+		echo '<a class="button msr-inquiry-btn" href="' . esc_url( $url ) . '">' . esc_html__( 'Enquire', 'msrproducts' ) . '</a>';
 		get_template_part( 'template-parts/buttons/compare-toggle', null, array( 'product_id' => $product_id ) );
 		echo '</div>';
 	}
@@ -63,21 +63,55 @@ if ( ! function_exists( 'msrproducts_catalog_single_inquiry_cta' ) ) {
 		$product_id = is_object( $product ) && method_exists( $product, 'get_id' ) ? (int) $product->get_id() : get_the_ID();
 		$url        = msrproducts_get_inquiry_url( $product_id );
 
-		echo '<p class="msr-inquiry-wrap"><a class="button msr-inquiry-btn" href="' . esc_url( $url ) . '">' . esc_html__( 'Request information', 'msrproducts' ) . '</a></p>';
+		echo '<p class="msr-inquiry-wrap"><a class="button msr-inquiry-btn" href="' . esc_url( $url ) . '">' . esc_html__( 'Enquire about this product', 'msrproducts' ) . '</a></p>';
 	}
 }
 
-if ( ! function_exists( 'msrproducts_catalog_remove_cart_buttons' ) ) {
-	function msrproducts_catalog_remove_cart_buttons() {
+if ( ! function_exists( 'msrproducts_catalog_register_demo_store_hooks' ) ) {
+	/**
+	 * Enquiry-led demo: hide cart/checkout UI, surface contact CTAs.
+	 */
+	function msrproducts_catalog_register_demo_store_hooks() {
 		if ( ! class_exists( 'WooCommerce' ) ) {
 			return;
 		}
 
-		remove_action( 'woocommerce_after_shop_loop_item', 'msrproducts_catalog_loop_inquiry_cta', 10 );
-		remove_action( 'woocommerce_single_product_summary', 'msrproducts_catalog_single_inquiry_cta', 30 );
+		remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
+		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+
+		add_action( 'woocommerce_after_shop_loop_item', 'msrproducts_catalog_loop_inquiry_cta', 12 );
+		add_action( 'woocommerce_single_product_summary', 'msrproducts_catalog_single_inquiry_cta', 32 );
 	}
 }
-add_action( 'init', 'msrproducts_catalog_remove_cart_buttons', 30 );
+add_action( 'init', 'msrproducts_catalog_register_demo_store_hooks', 40 );
+
+if ( ! function_exists( 'msrproducts_catalog_loop_inquiry_label' ) ) {
+	function msrproducts_catalog_loop_inquiry_label() {
+		return __( 'Enquire', 'msrproducts' );
+	}
+}
+
+if ( ! function_exists( 'msrproducts_catalog_demo_store_notice' ) ) {
+	function msrproducts_catalog_demo_store_notice() {
+		if ( ! function_exists( 'is_shop' ) || ! ( is_shop() || is_product_taxonomy() || is_product() ) ) {
+			return;
+		}
+		echo '<p class="msr-demo-store-notice" role="status">';
+		echo esc_html__( 'Demonstration store — browse products and send an enquiry. Checkout and payment are not enabled.', 'msrproducts' );
+		echo '</p>';
+	}
+}
+add_action( 'woocommerce_before_main_content', 'msrproducts_catalog_demo_store_notice', 6 );
+
+if ( ! function_exists( 'msrproducts_catalog_hide_product_reviews' ) ) {
+	function msrproducts_catalog_hide_product_reviews( $tabs ) {
+		if ( is_array( $tabs ) && isset( $tabs['reviews'] ) ) {
+			unset( $tabs['reviews'] );
+		}
+		return $tabs;
+	}
+}
+add_filter( 'woocommerce_product_tabs', 'msrproducts_catalog_hide_product_reviews', 99 );
 
 if ( ! function_exists( 'msrproducts_catalog_redirect_purchase_routes' ) ) {
 	function msrproducts_catalog_redirect_purchase_routes() {
@@ -118,10 +152,17 @@ add_filter( 'woocommerce_product_add_to_cart_text', 'msrproducts_catalog_loop_ad
 
 if ( ! function_exists( 'msrproducts_catalog_single_add_to_cart_text' ) ) {
 	function msrproducts_catalog_single_add_to_cart_text( $text ) {
-		return __( 'Add to basket', 'msrproducts' );
+		return __( 'Enquire about this product', 'msrproducts' );
 	}
 }
 add_filter( 'woocommerce_product_single_add_to_cart_text', 'msrproducts_catalog_single_add_to_cart_text', 20 );
+
+if ( ! function_exists( 'msrproducts_catalog_is_purchasable' ) ) {
+	function msrproducts_catalog_is_purchasable( $purchasable, $product ) {
+		return false;
+	}
+}
+add_filter( 'woocommerce_is_purchasable', 'msrproducts_catalog_is_purchasable', 20, 2 );
 
 if ( ! function_exists( 'msrproducts_related_heading' ) ) {
 	function msrproducts_related_heading() {

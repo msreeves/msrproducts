@@ -31,7 +31,7 @@
 			<div class="container-fluid">
 				<p class="promo-strip__text">
 					<a href="<?php echo esc_url($promo_url); ?>">
-						<span class="promo-pill">Portfolio</span>
+						<span class="promo-pill"><?php echo esc_html( msrproducts_get_promo_strip_pill() ); ?></span>
 						<span class="promo-message"><?php echo esc_html($promo_text); ?></span>
 						<span class="promo-cta"><?php echo esc_html( msrproducts_get_promo_strip_cta() ); ?></span>
 					</a>

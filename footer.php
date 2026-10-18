@@ -24,7 +24,7 @@
 					array(
 						'theme_location' => 'footer-explore-menu',
 						'container'      => false,
-						'fallback_cb'    => false,
+						'fallback_cb'    => 'msrproducts_footer_explore_fallback',
 					)
 				);
 				?>
@@ -36,7 +36,7 @@
 					array(
 						'theme_location' => 'footer-services-menu',
 						'container'      => false,
-						'fallback_cb'    => false,
+						'fallback_cb'    => 'msrproducts_footer_services_fallback',
 					)
 				);
 				?>

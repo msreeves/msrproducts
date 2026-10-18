@@ -1,5 +1,15 @@
 .woocommerce,
 .woocommerce-page {
+  .msr-demo-store-notice {
+    margin: 0 0 1rem;
+    padding: 0.65rem 0.85rem;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: #f8f8f8;
+    color: #333;
+    font-size: 0.88rem;
+  }
+
   .msr-inquiry-wrap {
     margin-top: 0.6rem;
   }

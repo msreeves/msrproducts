@@ -62,6 +62,18 @@ function msrproducts_get_promo_strip_cta() {
 }
 
 /**
+ * Promo strip pill label (demo store, not portfolio hub).
+ *
+ * @return string
+ */
+function msrproducts_get_promo_strip_pill() {
+	return msrproducts_get_option_string(
+		'promo_strip_pill',
+		__( 'Demo store', 'msrproducts' )
+	);
+}
+
+/**
  * Hero primary CTA label (home showcase).
  *
  * @return string

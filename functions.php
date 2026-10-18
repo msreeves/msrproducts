@@ -25,6 +25,7 @@ require_once get_template_directory() . '/inc/msr-products-seo.php';
 require_once get_template_directory() . '/inc/msr-products-setup.php';
 require_once get_template_directory() . '/inc/msr-products-perf.php';
 require_once get_template_directory() . '/inc/msrproducts-media.php';
+require_once get_template_directory() . '/inc/msr-products-footer-nav.php';
 
 /**
  * WordPress often stores SVG dimensions as 1×1; strip width/height so layout/CSS can size them.
@@ -580,28 +581,45 @@ add_action( 'after_switch_theme', 'msrproducts_ensure_core_pages' );
 add_action( 'admin_init', 'msrproducts_ensure_core_pages' );
 
 if ( ! function_exists( 'msrproducts_faq_shortcode' ) ) {
-	function msrproducts_faq_shortcode() {
+	/**
+	 * @param array<string, string>|string $atts Shortcode attributes.
+	 */
+	function msrproducts_faq_shortcode( $atts = array() ) {
+		$atts = shortcode_atts(
+			array(
+				'preview' => '0',
+			),
+			is_array( $atts ) ? $atts : array(),
+			'msrproducts_faq'
+		);
+		$preview = in_array( strtolower( (string) $atts['preview'] ), array( '1', 'true', 'yes' ), true );
+
 		$items = array(
 			array(
 				'q' => 'Can I buy products on this site?',
-				'a' => 'No. This is a portfolio catalog. Use the inquiry button to discuss project collaboration.',
+				'a' => 'No. This is a demonstration WooCommerce store. Browse the catalogue and use Enquire on any product — checkout is disabled.',
 			),
 			array(
-				'q' => 'How quickly can a project start?',
-				'a' => 'Typical kickoff is within 1-2 weeks after scope confirmation.',
+				'q' => 'How does compare work?',
+				'a' => 'Add up to three products to compare, then open the compare page to review specifications side by side before you contact us.',
 			),
 			array(
-				'q' => 'Do you provide source files and handover docs?',
-				'a' => 'Yes. Handover packages and implementation notes are part of each delivery.',
+				'q' => 'Are product photos production-ready?',
+				'a' => 'Imagery is representative of a retail layout demo. SKUs, copy, and galleries illustrate structure — not a live inventory feed.',
 			),
 		);
 
-		$html = '<section class="msr-faq" aria-label="Frequently asked questions"><h2>Frequently Asked Questions</h2><div class="msr-faq-list">';
+		$html = '<div class="msr-faq-list">';
 		foreach ( $items as $item ) {
 			$html .= '<details class="msr-faq-item"><summary>' . esc_html( $item['q'] ) . '</summary><p>' . esc_html( $item['a'] ) . '</p></details>';
 		}
-		$html .= '</div></section>';
-		return $html;
+		$html .= '</div>';
+
+		if ( $preview ) {
+			return '<div class="msr-faq msr-faq--preview" aria-label="' . esc_attr__( 'Frequently asked questions', 'msrproducts' ) . '">' . $html . '</div>';
+		}
+
+		return '<section class="msr-faq" aria-label="' . esc_attr__( 'Frequently asked questions', 'msrproducts' ) . '"><h1>' . esc_html__( 'Frequently Asked Questions', 'msrproducts' ) . '</h1>' . $html . '</section>';
 	}
 }
 add_shortcode( 'msrproducts_faq', 'msrproducts_faq_shortcode' );

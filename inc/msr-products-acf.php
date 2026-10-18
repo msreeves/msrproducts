@@ -83,6 +83,12 @@ function msrproducts_register_acf_options_fields() {
 			'title'  => 'Site copy',
 			'fields' => array(
 				array(
+					'key'   => 'field_msr_prd_promo_pill',
+					'label' => 'Header promo pill',
+					'name'  => 'promo_strip_pill',
+					'type'  => 'text',
+				),
+				array(
 					'key'   => 'field_msr_prd_promo_text',
 					'label' => 'Header promo message',
 					'name'  => 'promo_strip_text',

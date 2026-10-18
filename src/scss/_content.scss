@@ -382,6 +382,16 @@
 
 .msr-home {
   padding-bottom: 2.5rem;
+  overflow-x: clip;
+}
+
+.promo-strip__text a {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.65rem;
+  max-width: 100%;
 }
 
 .msr-home .home-hero-banner,
@@ -632,6 +642,23 @@
   aspect-ratio: 16 / 10;
 }
 
+.home-category-tile__image-wrap--icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  padding: 1.25rem;
+  background: #f3f3f3;
+
+  img {
+    aspect-ratio: auto;
+    width: auto;
+    max-width: 72px;
+    max-height: 72px;
+    object-fit: contain;
+  }
+}
+
 .home-category-tile__name,
 .home-category-tile__meta {
   padding-inline: 0.85rem;
@@ -755,9 +782,24 @@
     letter-spacing: 0.07em;
   }
 
-  h2 {
+  h1 {
     margin: 0.5rem 0;
-    font-size: 2rem;
+    font-size: clamp(1.65rem, 3.2vw, 2.15rem);
+    line-height: 1.15;
+  }
+
+  .home-hero-banner__visual {
+    border-radius: 14px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+
+    img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+    }
   }
 
   .home-hero-banner__actions {
@@ -1010,11 +1052,14 @@
   }
 
   .home-image-led-grid__cards {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
   }
 
   .home-image-card img {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 4 / 5;
+    max-height: 220px;
+    object-fit: cover;
   }
 
   .home-category-tiles__grid {

@@ -14,7 +14,19 @@ $shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 
 if ( ! $shop_url ) {
 	$shop_url = home_url( '/?post_type=product' );
 }
-$contact_url = function_exists( 'msrproducts_get_page_url_by_path' ) ? msrproducts_get_page_url_by_path( 'contact', home_url( '/' ) ) : home_url( '/' );
+$contact_url  = function_exists( 'msrproducts_get_page_url_by_path' ) ? msrproducts_get_page_url_by_path( 'contact', home_url( '/' ) ) : home_url( '/' );
+$fitness_url  = function_exists( 'msrproducts_get_term_archive_url' )
+	? msrproducts_get_term_archive_url( get_term_by( 'slug', 'fitness-equipment', 'product_cat' ) )
+	: $shop_url;
+if ( ! is_string( $fitness_url ) || $fitness_url === '' ) {
+	$fitness_url = $shop_url;
+}
+$accessories_url = function_exists( 'msrproducts_get_term_archive_url' )
+	? msrproducts_get_term_archive_url( get_term_by( 'slug', 'accessories', 'product_cat' ) )
+	: $shop_url;
+if ( ! is_string( $accessories_url ) || $accessories_url === '' ) {
+	$accessories_url = $shop_url;
+}
 if ( ! function_exists( 'msrproducts_home_field' ) ) {
 	/**
 	 * Read homepage ACF field with fallback when ACF is missing or empty.
@@ -48,18 +60,18 @@ $process_title = (string) msrproducts_home_field( 'home_process_title', 'How thi
 $process_cards = array(
 	array(
 		'icon'  => (string) msrproducts_home_field( 'home_process_1_icon', 'fa-solid fa-magnifying-glass' ),
-		'title' => (string) msrproducts_home_field( 'home_process_1_title', '1. Browse the catalogue' ),
+		'title' => (string) msrproducts_home_field( 'home_process_1_title', 'Browse the catalogue' ),
 		'copy'  => (string) msrproducts_home_field( 'home_process_1_copy', 'Filter by category, open a product page, and swipe through gallery images.' ),
 	),
-	array(
-		'icon'  => (string) msrproducts_home_field( 'home_process_2_icon', 'fa-solid fa-pen-ruler' ),
-		'title' => (string) msrproducts_home_field( 'home_process_2_title', '2. Compare & shortlist' ),
+		array(
+		'icon'  => (string) msrproducts_home_field( 'home_process_2_icon', 'fa-solid fa-scale-balanced' ),
+		'title' => (string) msrproducts_home_field( 'home_process_2_title', 'Compare & shortlist' ),
 		'copy'  => (string) msrproducts_home_field( 'home_process_2_copy', 'Use compare to review up to three products before you enquire.' ),
 	),
 	array(
-		'icon'  => (string) msrproducts_home_field( 'home_process_3_icon', 'fa-solid fa-rocket' ),
-		'title' => (string) msrproducts_home_field( 'home_process_3_title', '3. Request details' ),
-		'copy'  => (string) msrproducts_home_field( 'home_process_3_copy', 'Send an enquiry from any product — no checkout in this portfolio demo.' ),
+		'icon'  => (string) msrproducts_home_field( 'home_process_3_icon', 'fa-solid fa-comments' ),
+		'title' => (string) msrproducts_home_field( 'home_process_3_title', 'Request details' ),
+		'copy'  => (string) msrproducts_home_field( 'home_process_3_copy', 'Send an enquiry from any product — checkout is not enabled on this demonstration store.' ),
 	),
 );
 
@@ -70,37 +82,37 @@ $editorial_cards = array(
 		'title' => (string) msrproducts_home_field( 'home_editorial_1_title', 'New in accessories' ),
 		'copy'  => (string) msrproducts_home_field( 'home_editorial_1_copy', 'Bags and everyday carry with multi-angle galleries and specification-ready layouts.' ),
 		'label' => (string) msrproducts_home_field( 'home_editorial_1_label', 'Shop accessories' ),
-		'url'   => (string) msrproducts_home_field( 'home_editorial_1_url', $shop_url ),
+		'url'   => (string) msrproducts_home_field( 'home_editorial_1_url', $accessories_url ),
 	),
 	array(
 		'image' => msrproducts_home_field( 'home_editorial_2_image', array() ),
 		'title' => (string) msrproducts_home_field( 'home_editorial_2_title', 'Training & wellness' ),
 		'copy'  => (string) msrproducts_home_field( 'home_editorial_2_copy', 'Fitness equipment with clear imagery — curated items only where photos meet catalogue standards.' ),
 		'label' => (string) msrproducts_home_field( 'home_editorial_2_label', 'Shop fitness' ),
-		'url'   => (string) msrproducts_home_field( 'home_editorial_2_url', $contact_url ),
+		'url'   => (string) msrproducts_home_field( 'home_editorial_2_url', $fitness_url ),
 	),
 );
 
 $trust_cards = array(
 	array(
-		'icon'  => (string) msrproducts_home_field( 'home_trust_1_icon', 'fa-regular fa-clock' ),
-		'stat'  => (string) msrproducts_home_field( 'home_trust_1_stat', '48h' ),
-		'label' => (string) msrproducts_home_field( 'home_trust_1_label', 'Average response time' ),
+		'icon'  => (string) msrproducts_home_field( 'home_trust_1_icon', 'fa-solid fa-box-open' ),
+		'stat'  => (string) msrproducts_home_field( 'home_trust_1_stat', '170+' ),
+		'label' => (string) msrproducts_home_field( 'home_trust_1_label', 'Demonstration SKUs' ),
 	),
 	array(
-		'icon'  => (string) msrproducts_home_field( 'home_trust_2_icon', 'fa-solid fa-briefcase' ),
-		'stat'  => (string) msrproducts_home_field( 'home_trust_2_stat', 'Portfolio' ),
-		'label' => (string) msrproducts_home_field( 'home_trust_2_label', 'No checkout, collaboration-only' ),
+		'icon'  => (string) msrproducts_home_field( 'home_trust_2_icon', 'fa-solid fa-images' ),
+		'stat'  => (string) msrproducts_home_field( 'home_trust_2_stat', 'Gallery' ),
+		'label' => (string) msrproducts_home_field( 'home_trust_2_label', 'Multi-image product pages' ),
 	),
 	array(
-		'icon'  => (string) msrproducts_home_field( 'home_trust_3_icon', 'fa-solid fa-diagram-project' ),
-		'stat'  => (string) msrproducts_home_field( 'home_trust_3_stat', 'End-to-end' ),
-		'label' => (string) msrproducts_home_field( 'home_trust_3_label', 'Research, design, implementation' ),
+		'icon'  => (string) msrproducts_home_field( 'home_trust_3_icon', 'fa-solid fa-scale-balanced' ),
+		'stat'  => (string) msrproducts_home_field( 'home_trust_3_stat', 'Compare' ),
+		'label' => (string) msrproducts_home_field( 'home_trust_3_label', 'Side-by-side specifications' ),
 	),
 	array(
-		'icon'  => (string) msrproducts_home_field( 'home_trust_4_icon', 'fa-solid fa-universal-access' ),
-		'stat'  => (string) msrproducts_home_field( 'home_trust_4_stat', 'Accessible' ),
-		'label' => (string) msrproducts_home_field( 'home_trust_4_label', 'Mobile-first and WCAG-focused delivery' ),
+		'icon'  => (string) msrproducts_home_field( 'home_trust_4_icon', 'fa-solid fa-envelope' ),
+		'stat'  => (string) msrproducts_home_field( 'home_trust_4_stat', 'Enquire' ),
+		'label' => (string) msrproducts_home_field( 'home_trust_4_label', 'Contact-led demo checkout' ),
 	),
 );
 
@@ -125,24 +137,51 @@ $product_terms = get_terms(
 	array(
 		'taxonomy'   => 'product_cat',
 		'hide_empty' => true,
-		'number'     => 6,
+		'parent'     => 0,
+		'orderby'    => 'count',
+		'order'      => 'DESC',
+		'number'     => 8,
 	)
 );
+$hero_image_url = '';
+$hero_image_alt = '';
 if ( is_wp_error( $product_terms ) ) {
 	$product_terms = array();
+}
+?>
+<?php
+if ( $featured_products->have_posts() ) {
+	$featured_products->the_post();
+	$hero_thumb = function_exists( 'msrproducts_resolve_product_thumbnail_id' )
+		? msrproducts_resolve_product_thumbnail_id( (int) get_the_ID() )
+		: (int) get_post_thumbnail_id();
+	if ( $hero_thumb > 0 && function_exists( 'msrproducts_attachment_file_exists' ) && msrproducts_attachment_file_exists( $hero_thumb ) ) {
+		$hero_image_url = (string) wp_get_attachment_image_url( $hero_thumb, 'large' );
+		$hero_image_alt = sprintf(
+			/* translators: %s: product title */
+			__( 'Featured product: %s', 'msrproducts' ),
+			get_the_title()
+		);
+	}
+	$featured_products->rewind_posts();
 }
 ?>
 <section class="home-hero-banner" aria-labelledby="home-hero-title">
 	<div class="container">
 		<div class="home-hero-banner__content">
 			<p class="eyebrow"><?php echo esc_html( $hero_eyebrow ); ?></p>
-			<h2 id="home-hero-title"><?php echo esc_html( $hero_title ); ?></h2>
+			<h1 id="home-hero-title"><?php echo esc_html( $hero_title ); ?></h1>
 			<p><?php echo esc_html( $hero_copy ); ?></p>
 			<div class="home-hero-banner__actions">
 				<a class="button" href="<?php echo esc_url( $shop_url ); ?>"><?php echo esc_html( msrproducts_get_hero_primary_cta() ); ?></a>
 				<a class="button button--ghost" href="<?php echo esc_url( $contact_url ); ?>"><?php echo esc_html( msrproducts_get_hero_secondary_cta() ); ?></a>
 			</div>
 		</div>
+		<?php if ( $hero_image_url !== '' ) : ?>
+			<div class="home-hero-banner__visual">
+				<img src="<?php echo esc_url( $hero_image_url ); ?>" alt="<?php echo esc_attr( $hero_image_alt ); ?>" loading="eager" decoding="async" />
+			</div>
+		<?php endif; ?>
 	</div>
 </section>
 
@@ -229,9 +268,14 @@ if ( is_wp_error( $product_terms ) ) {
 					$term_img_url = msrproducts_term_tile_image_url( $term );
 				}
 				?>
+				<?php
+				$tile_is_icon = $term_img_url !== '' && preg_match( '/category-[^/]+\.svg$/i', $term_img_url );
+				?>
 				<a class="home-category-tile" href="<?php echo esc_url( $term_url ); ?>">
-					<span class="home-category-tile__image-wrap">
-						<img src="<?php echo esc_url( $term_img_url ); ?>" alt="<?php echo esc_attr( $term->name ); ?>" loading="lazy" decoding="async" />
+					<span class="home-category-tile__image-wrap<?php echo $tile_is_icon ? ' home-category-tile__image-wrap--icon' : ''; ?>">
+						<?php if ( $term_img_url !== '' ) : ?>
+							<img src="<?php echo esc_url( $term_img_url ); ?>" alt="<?php echo esc_attr( $term->name ); ?>" loading="lazy" decoding="async" />
+						<?php endif; ?>
 					</span>
 					<span class="home-category-tile__name"><?php echo esc_html( $term->name ); ?></span>
 					<span class="home-category-tile__meta"><?php echo esc_html( (string) $term->count ); ?> products</span>
@@ -261,7 +305,8 @@ if ( is_wp_error( $product_terms ) ) {
 					}
 				}
 				if ( ! $image_url && function_exists( 'msrproducts_marketing_card_image_url' ) ) {
-					$image_url = msrproducts_marketing_card_image_url( $card['image'], 'publication' );
+					$icon_slug = strpos( strtolower( (string) $card['title'] ), 'fitness' ) !== false ? 'fitness' : 'accessories';
+					$image_url = msrproducts_marketing_card_image_url( $card['image'], $icon_slug );
 					$image_alt = (string) $card['title'];
 				}
 				?>
@@ -310,6 +355,6 @@ if ( is_wp_error( $product_terms ) ) {
 <section class="home-faq-preview" aria-labelledby="home-faq-preview-title">
 	<div class="container">
 		<h2 id="home-faq-preview-title"><?php echo esc_html( msrproducts_get_home_faq_section_title() ); ?></h2>
-		<?php echo do_shortcode( '[msrproducts_faq]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<?php echo do_shortcode( '[msrproducts_faq preview="1"]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 	</div>
 </section>
