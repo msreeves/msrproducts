@@ -24,6 +24,7 @@ require_once get_template_directory() . '/inc/msr-products-options.php';
 require_once get_template_directory() . '/inc/msr-products-seo.php';
 require_once get_template_directory() . '/inc/msr-products-setup.php';
 require_once get_template_directory() . '/inc/msr-products-perf.php';
+require_once get_template_directory() . '/inc/msrproducts-media.php';
 
 /**
  * WordPress often stores SVG dimensions as 1×1; strip width/height so layout/CSS can size them.
