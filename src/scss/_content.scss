@@ -554,21 +554,28 @@
 
 .home-category-tile {
   border: 1px solid rgba(0, 0, 0, 0.12);
-  border-radius: 10px;
-  padding: 0.85rem;
+  border-radius: 12px;
+  padding: 0;
   text-decoration: none;
   color: #111;
   background: #fff;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
 }
 
 .home-category-tile__image-wrap {
   display: block;
-  border-radius: 8px;
+  border-radius: 0;
   overflow: hidden;
-  margin-bottom: 0.55rem;
+  margin-bottom: 0;
   background: #f3f3f3;
 }
 
@@ -576,8 +583,18 @@
   aspect-ratio: 16 / 10;
 }
 
+.home-category-tile__name,
+.home-category-tile__meta {
+  padding-inline: 0.85rem;
+}
+
+.home-category-tile__meta {
+  padding-bottom: 0.85rem;
+}
+
 .home-category-tile__name {
   font-weight: 700;
+  padding-top: 0.65rem;
 }
 
 .home-category-tile__meta {
@@ -594,13 +611,31 @@
 .home-editorial-banner {
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 12px;
-  padding: 1rem;
-  background: #f8f8f8;
+  padding: 0;
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 
   img {
-    border-radius: 10px;
-    aspect-ratio: 16 / 9;
-    margin-bottom: 0.7rem;
+    border-radius: 0;
+    aspect-ratio: 16 / 10;
+    margin-bottom: 0;
+  }
+
+  h3,
+  p,
+  a {
+    margin-inline: 1rem;
+  }
+
+  h3 {
+    margin-top: 0.85rem;
+  }
+
+  a {
+    margin-bottom: 1rem;
+    display: inline-flex;
   }
 
   a {
@@ -1075,4 +1110,26 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+.msr-media-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 12rem;
+  background: var(--msr-surface-muted, #e8edf2);
+  border-radius: 0.5rem;
+  object-fit: contain;
+  padding: 1.5rem;
+}
+
+.msr-media-icon--partner {
+  background: linear-gradient(135deg, #1f3a56 0%, #2c5f7a 100%);
+  color: #fff;
+}
+
+.msr-media-icon__initials {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
 }

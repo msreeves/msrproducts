@@ -209,3 +209,36 @@ function msrproducts_marketing_card_image_url( $acf_image, string $icon_slug = '
 	}
 	return msrproducts_category_icon_url( $icon_slug );
 }
+
+add_filter(
+	'woocommerce_product_get_image_id',
+	static function ( $image_id, $product ) {
+		if ( ! $product instanceof WC_Product || $product->get_type() === 'variation' ) {
+			return $image_id;
+		}
+		$resolved = msrproducts_resolve_product_thumbnail_id( (int) $product->get_id() );
+		return $resolved > 0 ? $resolved : $image_id;
+	},
+	20,
+	2
+);
+
+add_filter(
+	'woocommerce_product_get_gallery_image_ids',
+	static function ( $ids, $product ) {
+		if ( ! $product instanceof WC_Product || ! msrproducts_load_product_image_lib() ) {
+			return $ids;
+		}
+		$sku = (string) $product->get_sku();
+		if ( $sku === '' ) {
+			return $ids;
+		}
+		$ordered = msrproducts_gallery_attachment_ids_for_product( (int) $product->get_id(), $sku );
+		if ( count( $ordered ) <= 1 ) {
+			return $ids;
+		}
+		return array_slice( $ordered, 1 );
+	},
+	20,
+	2
+);

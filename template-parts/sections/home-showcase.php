@@ -113,6 +113,14 @@ $featured_products = new WP_Query(
 		'order'          => 'DESC',
 	)
 );
+$editorial_fallback_images = array();
+if ( $featured_products->have_posts() ) {
+	$featured_products->the_post();
+	$editorial_fallback_images[] = function_exists( 'msrproducts_resolve_product_thumbnail_id' )
+		? msrproducts_resolve_product_thumbnail_id( (int) get_the_ID() )
+		: (int) get_post_meta( get_the_ID(), '_thumbnail_id', true );
+	$featured_products->rewind_posts();
+}
 $product_terms = get_terms(
 	array(
 		'taxonomy'   => 'product_cat',
@@ -244,6 +252,13 @@ if ( is_wp_error( $product_terms ) ) {
 				if ( is_array( $card['image'] ) && ! empty( $card['image']['url'] ) ) {
 					$image_url = (string) $card['image']['url'];
 					$image_alt = ! empty( $card['image']['alt'] ) ? (string) $card['image']['alt'] : (string) $card['title'];
+				}
+				if ( ! $image_url && ! empty( $editorial_fallback_images ) ) {
+					$fb = (int) array_shift( $editorial_fallback_images );
+					if ( $fb > 0 && function_exists( 'msrproducts_attachment_file_exists' ) && msrproducts_attachment_file_exists( $fb ) ) {
+						$image_url = (string) wp_get_attachment_image_url( $fb, 'large' );
+						$image_alt = (string) $card['title'];
+					}
 				}
 				if ( ! $image_url && function_exists( 'msrproducts_marketing_card_image_url' ) ) {
 					$image_url = msrproducts_marketing_card_image_url( $card['image'], 'publication' );
