@@ -86,6 +86,92 @@ if ( ! function_exists( 'msrproducts_related_products_args' ) ) {
 }
 add_filter( 'woocommerce_output_related_products_args', 'msrproducts_related_products_args' );
 
+if ( ! function_exists( 'msrproducts_sku_family_prefix' ) ) {
+	/**
+	 * Shared SKU family for related products (e.g. 24-WB01 → 24-WB, MH02 → MH).
+	 *
+	 * @param string $sku Product SKU.
+	 */
+	function msrproducts_sku_family_prefix( $sku ) {
+		$sku = strtoupper( trim( (string) $sku ) );
+		if ( $sku === '' ) {
+			return '';
+		}
+		if ( preg_match( '/^(24-[A-Z]{2})/', $sku, $matches ) ) {
+			return $matches[1];
+		}
+		if ( preg_match( '/^([A-Z]{2})\d/', $sku, $matches ) ) {
+			return $matches[1];
+		}
+		return '';
+	}
+}
+
+if ( ! function_exists( 'msrproducts_related_products_by_sku_family' ) ) {
+	/**
+	 * Prefer same SKU family over broad shared categories (e.g. Accessories).
+	 *
+	 * @param array<int> $related_ids Related product IDs.
+	 * @param int        $product_id  Current product ID.
+	 * @param array      $args        Query args.
+	 * @return array<int>
+	 */
+	function msrproducts_related_products_by_sku_family( $related_ids, $product_id, $args ) {
+		if ( ! function_exists( 'wc_get_products' ) ) {
+			return $related_ids;
+		}
+
+		$limit = isset( $args['limit'] ) ? max( 1, (int) $args['limit'] ) : 4;
+		$sku   = (string) get_post_meta( (int) $product_id, '_sku', true );
+		$prefix = msrproducts_sku_family_prefix( $sku );
+		if ( $prefix === '' ) {
+			return $related_ids;
+		}
+
+		$query = new WP_Query(
+			array(
+				'post_type'      => 'product',
+				'post_status'    => 'publish',
+				'posts_per_page' => $limit,
+				'post__not_in'   => array( (int) $product_id ),
+				'fields'         => 'ids',
+				'orderby'        => 'rand',
+				'meta_query'     => array(
+					array(
+						'key'     => '_sku',
+						'value'   => $prefix,
+						'compare' => 'LIKE',
+					),
+				),
+			)
+		);
+
+		$family_ids = is_array( $query->posts ) ? array_map( 'intval', $query->posts ) : array();
+		wp_reset_postdata();
+
+		if ( $family_ids === array() ) {
+			return $related_ids;
+		}
+		if ( count( $family_ids ) >= $limit ) {
+			return array_slice( $family_ids, 0, $limit );
+		}
+
+		foreach ( $related_ids as $rid ) {
+			$rid = (int) $rid;
+			if ( $rid === (int) $product_id || in_array( $rid, $family_ids, true ) ) {
+				continue;
+			}
+			$family_ids[] = $rid;
+			if ( count( $family_ids ) >= $limit ) {
+				break;
+			}
+		}
+
+		return $family_ids;
+	}
+}
+add_filter( 'woocommerce_related_products', 'msrproducts_related_products_by_sku_family', 20, 3 );
+
 if ( ! function_exists( 'msrproducts_woo_single_product_layout_hooks' ) ) {
 	function msrproducts_woo_single_product_layout_hooks() {
 		if ( ! class_exists( 'WooCommerce' ) ) {

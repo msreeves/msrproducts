@@ -125,7 +125,7 @@ add_filter( 'woocommerce_product_single_add_to_cart_text', 'msrproducts_catalog_
 
 if ( ! function_exists( 'msrproducts_related_heading' ) ) {
 	function msrproducts_related_heading() {
-		return __( 'Similar Projects', 'msrproducts' );
+		return __( 'Related products', 'msrproducts' );
 	}
 }
 add_filter( 'woocommerce_product_related_products_heading', 'msrproducts_related_heading' );

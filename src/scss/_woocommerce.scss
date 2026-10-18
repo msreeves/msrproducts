@@ -353,6 +353,11 @@
       justify-self: start;
       position: relative;
 
+      // Before Flexslider inits, Woo stacks every gallery slide — show main only.
+      &:not(.flexslider) .woocommerce-product-gallery__wrapper > .woocommerce-product-gallery__image:not(:first-child) {
+        display: none;
+      }
+
       img {
         width: 100%;
         height: auto;
