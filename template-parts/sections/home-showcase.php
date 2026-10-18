@@ -52,9 +52,9 @@ if ( ! function_exists( 'msrproducts_home_field' ) ) {
 	}
 }
 
-$hero_eyebrow = (string) msrproducts_home_field( 'home_hero_eyebrow', 'Demonstration product store' );
-$hero_title   = (string) msrproducts_home_field( 'home_hero_title', 'Shop bags, apparel, watches, and training gear with full product detail pages.' );
-$hero_copy    = (string) msrproducts_home_field( 'home_hero_copy', 'Every listing includes pricing, photo galleries, and enquiry options — like a modern ecommerce storefront.' );
+$hero_eyebrow = (string) msrproducts_home_field( 'home_hero_eyebrow', 'Fieldcrest Supply Co.' );
+$hero_title   = (string) msrproducts_home_field( 'home_hero_title', 'Workwear & field gear, spec-ready.' );
+$hero_copy    = (string) msrproducts_home_field( 'home_hero_copy', 'Demonstration WooCommerce catalogue for portfolio — browse SKU-matched imagery, compare listings, and send enquiries (checkout disabled).' );
 
 $process_title = (string) msrproducts_home_field( 'home_process_title', 'How this shop works' );
 $process_cards = array(
