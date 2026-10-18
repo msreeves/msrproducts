@@ -213,6 +213,51 @@ function msrproducts_term_tile_image_url( WP_Term $term ): string {
 }
 
 /**
+ * True when URL is a theme category SVG (not a catalogue photo).
+ *
+ * @param string $url Image URL.
+ */
+function msrproducts_is_theme_category_icon_url( string $url ): bool {
+	if ( $url === '' ) {
+		return true;
+	}
+	return strpos( $url, '/assets/icons/category-' ) !== false && str_ends_with( strtolower( $url ), '.svg' );
+}
+
+/**
+ * Editorial highlight card: real product photo from category, not ACF icon placeholders.
+ *
+ * @param mixed  $acf_image     ACF image field.
+ * @param string $category_slug product_cat slug (e.g. accessories).
+ */
+function msrproducts_editorial_card_image_url( $acf_image, string $category_slug ): string {
+	$url = '';
+	if ( is_array( $acf_image ) && ! empty( $acf_image['url'] ) && is_string( $acf_image['url'] ) ) {
+		$url = $acf_image['url'];
+	}
+	if ( $url !== '' && ! msrproducts_is_theme_category_icon_url( $url ) ) {
+		return $url;
+	}
+
+	$term = get_term_by( 'slug', sanitize_title( $category_slug ), 'product_cat' );
+	if ( $term instanceof WP_Term ) {
+		$tid = msrproducts_best_product_thumbnail_for_term( (int) $term->term_id );
+		if ( $tid > 0 ) {
+			$photo = wp_get_attachment_image_url( $tid, 'large' );
+			if ( is_string( $photo ) && $photo !== '' ) {
+				return $photo;
+			}
+		}
+		$tile = msrproducts_term_tile_image_url( $term );
+		if ( $tile !== '' && ! msrproducts_is_theme_category_icon_url( $tile ) ) {
+			return $tile;
+		}
+	}
+
+	return msrproducts_category_icon_url( msrproducts_category_icon_slug_for_term( $category_slug ) );
+}
+
+/**
  * Editorial / marketing card image: ACF image array, else icon.
  *
  * @param mixed  $acf_image ACF image field.
@@ -220,7 +265,10 @@ function msrproducts_term_tile_image_url( WP_Term $term ): string {
  */
 function msrproducts_marketing_card_image_url( $acf_image, string $icon_slug = 'publication' ): string {
 	if ( is_array( $acf_image ) && ! empty( $acf_image['url'] ) && is_string( $acf_image['url'] ) ) {
-		return $acf_image['url'];
+		$url = $acf_image['url'];
+		if ( ! msrproducts_is_theme_category_icon_url( $url ) ) {
+			return $url;
+		}
 	}
 	return msrproducts_category_icon_url( $icon_slug );
 }

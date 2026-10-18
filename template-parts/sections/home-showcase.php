@@ -78,18 +78,20 @@ $process_cards = array(
 $editorial_title = (string) msrproducts_home_field( 'home_editorial_title', 'Highlights from the catalogue' );
 $editorial_cards = array(
 	array(
-		'image' => msrproducts_home_field( 'home_editorial_1_image', array() ),
-		'title' => (string) msrproducts_home_field( 'home_editorial_1_title', 'New in accessories' ),
-		'copy'  => (string) msrproducts_home_field( 'home_editorial_1_copy', 'Bags and everyday carry with multi-angle galleries and specification-ready layouts.' ),
-		'label' => (string) msrproducts_home_field( 'home_editorial_1_label', 'Shop accessories' ),
-		'url'   => (string) msrproducts_home_field( 'home_editorial_1_url', $accessories_url ),
+		'image'          => msrproducts_home_field( 'home_editorial_1_image', array() ),
+		'category_slug'  => 'accessories',
+		'title'          => (string) msrproducts_home_field( 'home_editorial_1_title', 'New in accessories' ),
+		'copy'           => (string) msrproducts_home_field( 'home_editorial_1_copy', 'Bags and everyday carry with multi-angle galleries and specification-ready layouts.' ),
+		'label'          => (string) msrproducts_home_field( 'home_editorial_1_label', 'Shop accessories' ),
+		'url'            => (string) msrproducts_home_field( 'home_editorial_1_url', $accessories_url ),
 	),
 	array(
-		'image' => msrproducts_home_field( 'home_editorial_2_image', array() ),
-		'title' => (string) msrproducts_home_field( 'home_editorial_2_title', 'Training & wellness' ),
-		'copy'  => (string) msrproducts_home_field( 'home_editorial_2_copy', 'Fitness equipment with clear imagery — curated items only where photos meet catalogue standards.' ),
-		'label' => (string) msrproducts_home_field( 'home_editorial_2_label', 'Shop fitness' ),
-		'url'   => (string) msrproducts_home_field( 'home_editorial_2_url', $fitness_url ),
+		'image'          => msrproducts_home_field( 'home_editorial_2_image', array() ),
+		'category_slug'  => 'fitness-equipment',
+		'title'          => (string) msrproducts_home_field( 'home_editorial_2_title', 'Training & wellness' ),
+		'copy'           => (string) msrproducts_home_field( 'home_editorial_2_copy', 'Fitness equipment with clear imagery — curated items only where photos meet catalogue standards.' ),
+		'label'          => (string) msrproducts_home_field( 'home_editorial_2_label', 'Shop fitness' ),
+		'url'            => (string) msrproducts_home_field( 'home_editorial_2_url', $fitness_url ),
 	),
 );
 
@@ -125,14 +127,6 @@ $featured_products = new WP_Query(
 		'order'          => 'DESC',
 	)
 );
-$editorial_fallback_images = array();
-if ( $featured_products->have_posts() ) {
-	$featured_products->the_post();
-	$editorial_fallback_images[] = function_exists( 'msrproducts_resolve_product_thumbnail_id' )
-		? msrproducts_resolve_product_thumbnail_id( (int) get_the_ID() )
-		: (int) get_post_meta( get_the_ID(), '_thumbnail_id', true );
-	$featured_products->rewind_posts();
-}
 $product_terms = get_terms(
 	array(
 		'taxonomy'   => 'product_cat',
@@ -291,32 +285,25 @@ if ( $featured_products->have_posts() ) {
 		<div class="home-editorial-banners__grid">
 			<?php foreach ( $editorial_cards as $card ) : ?>
 				<?php
-				$image_url = '';
-				$image_alt = '';
-				if ( is_array( $card['image'] ) && ! empty( $card['image']['url'] ) ) {
-					$image_url = (string) $card['image']['url'];
-					$image_alt = ! empty( $card['image']['alt'] ) ? (string) $card['image']['alt'] : (string) $card['title'];
-				}
-				if ( ! $image_url && ! empty( $editorial_fallback_images ) ) {
-					$fb = (int) array_shift( $editorial_fallback_images );
-					if ( $fb > 0 && function_exists( 'msrproducts_attachment_file_exists' ) && msrproducts_attachment_file_exists( $fb ) ) {
-						$image_url = (string) wp_get_attachment_image_url( $fb, 'large' );
-						$image_alt = (string) $card['title'];
-					}
-				}
-				if ( ! $image_url && function_exists( 'msrproducts_marketing_card_image_url' ) ) {
-					$icon_slug = strpos( strtolower( (string) $card['title'] ), 'fitness' ) !== false ? 'fitness' : 'accessories';
-					$image_url = msrproducts_marketing_card_image_url( $card['image'], $icon_slug );
-					$image_alt = (string) $card['title'];
-				}
+				$category_slug = isset( $card['category_slug'] ) ? (string) $card['category_slug'] : 'accessories';
+				$image_url     = function_exists( 'msrproducts_editorial_card_image_url' )
+					? msrproducts_editorial_card_image_url( $card['image'], $category_slug )
+					: '';
+				$image_alt     = (string) $card['title'];
+				$is_icon       = $image_url !== '' && function_exists( 'msrproducts_is_theme_category_icon_url' )
+					&& msrproducts_is_theme_category_icon_url( $image_url );
 				?>
-				<article class="home-editorial-banner">
-					<?php if ( $image_url ) : ?>
-						<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" loading="lazy" decoding="async" />
+				<article class="home-editorial-banner<?php echo $is_icon ? ' home-editorial-banner--icon' : ''; ?>">
+					<?php if ( $image_url !== '' ) : ?>
+						<div class="home-editorial-banner__media">
+							<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" loading="lazy" decoding="async" />
+						</div>
 					<?php endif; ?>
-					<h3><?php echo esc_html( $card['title'] ); ?></h3>
-					<p><?php echo esc_html( $card['copy'] ); ?></p>
-					<a href="<?php echo esc_url( $card['url'] ); ?>"><?php echo esc_html( $card['label'] ); ?></a>
+					<div class="home-editorial-banner__body">
+						<h3><?php echo esc_html( $card['title'] ); ?></h3>
+						<p><?php echo esc_html( $card['copy'] ); ?></p>
+						<a class="button button--ghost home-editorial-banner__cta" href="<?php echo esc_url( $card['url'] ); ?>"><?php echo esc_html( $card['label'] ); ?></a>
+					</div>
 				</article>
 			<?php endforeach; ?>
 		</div>
